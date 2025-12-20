@@ -56,15 +56,6 @@
   opacity: 0.7;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
 .heroContent {
   position: relative;
   z-index: 1;
@@ -90,13 +81,19 @@
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 1.5rem;
-  color: var(--ifm-heading-color);
+  background: linear-gradient(135deg, var(--academic-navy) 0%, var(--academic-burgundy) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-family: var(--ifm-heading-font-family);
   animation: fadeInUp 0.8s ease-out 0.1s both;
 }
 
 [data-theme='dark'] .heroTitle {
-  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--academic-cambridge) 0%, var(--academic-burgundy) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heroSubtitle {
@@ -106,7 +103,6 @@
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
   font-family: var(--ifm-heading-font-family);
-  font-style: italic;
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
