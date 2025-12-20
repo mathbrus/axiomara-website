@@ -1,0 +1,211 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Apple-inspired blue/white tech theme */
+:root {
+  /* Primary blue colors - Apple developer blue */
+  --ifm-color-primary: #007AFF;
+  --ifm-color-primary-dark: #0051D5;
+  --ifm-color-primary-darker: #0047B8;
+  --ifm-color-primary-darkest: #003A96;
+  --ifm-color-primary-light: #1A8CFF;
+  --ifm-color-primary-lighter: #3399FF;
+  --ifm-color-primary-lightest: #66B3FF;
+  
+  /* Background colors - clean white */
+  --ifm-background-color: #FFFFFF;
+  --ifm-background-surface-color: #F5F5F7;
+  
+  /* Text colors */
+  --ifm-font-color-base: #1D1D1F;
+  --ifm-heading-color: #1D1D1F;
+  --ifm-color-content: #424245;
+  --ifm-color-content-secondary: #6E6E73;
+  
+  /* Code styling */
+  --ifm-code-font-size: 95%;
+  --ifm-code-background: #F5F5F7;
+  --ifm-code-color: #007AFF;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 122, 255, 0.1);
+  
+  /* Borders and shadows - subtle Apple style */
+  --ifm-border-color: #E5E5E7;
+  --ifm-hr-border-color: #E5E5E7;
+  --ifm-navbar-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05);
+  --ifm-card-border-radius: 12px;
+  
+  /* Spacing - generous like Apple */
+  --ifm-spacing-horizontal: 1.5rem;
+  
+  /* Typography */
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --ifm-heading-font-weight: 600;
+  --ifm-font-weight-semibold: 600;
+}
+
+/* Dark mode - subtle dark theme */
+[data-theme='dark'] {
+  --ifm-color-primary: #0A84FF;
+  --ifm-color-primary-dark: #0051D5;
+  --ifm-color-primary-darker: #0047B8;
+  --ifm-color-primary-darkest: #003A96;
+  --ifm-color-primary-light: #1A8CFF;
+  --ifm-color-primary-lighter: #3399FF;
+  --ifm-color-primary-lightest: #66B3FF;
+  
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #1C1C1E;
+  
+  --ifm-font-color-base: #F5F5F7;
+  --ifm-heading-color: #FFFFFF;
+  --ifm-color-content: #EBEBF5;
+  --ifm-color-content-secondary: #98989D;
+  
+  --ifm-code-background: #1C1C1E;
+  --ifm-code-color: #0A84FF;
+  --docusaurus-highlighted-code-line-bg: rgba(10, 132, 255, 0.2);
+  
+  --ifm-border-color: #38383A;
+  --ifm-hr-border-color: #38383A;
+  --ifm-navbar-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Global Apple-inspired styling */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-weight: 400;
+  letter-spacing: -0.011em;
+}
+
+/* Navbar styling */
+.navbar {
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 0.5px solid var(--ifm-border-color);
+}
+
+[data-theme='dark'] .navbar {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Hero section - Apple style */
+.hero {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F7 100%);
+  padding: 6rem 0;
+}
+
+[data-theme='dark'] .hero {
+  background: linear-gradient(180deg, #000000 0%, #1C1C1E 100%);
+}
+
+.hero__title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Buttons - Apple style */
+.button {
+  border-radius: 20px;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.button--primary {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+.button--primary:hover {
+  background: var(--ifm-color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.button--secondary {
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-color-primary);
+  border: 1px solid var(--ifm-border-color);
+}
+
+.button--secondary:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}
+
+/* Cards and features */
+.card {
+  border-radius: var(--ifm-card-border-radius);
+  border: 0.5px solid var(--ifm-border-color);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Code blocks */
+.prism-code {
+  border-radius: 8px;
+  border: 0.5px solid var(--ifm-border-color);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--ifm-background-surface-color);
+  border-top: 0.5px solid var(--ifm-border-color);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Premium scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced hero section styling */
+.hero--primary {
+  position: relative;
+}
+
+/* Premium section spacing */
+section {
+  position: relative;
+}
+
+/* Enhanced focus states for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Terminal-inspired monospace font stack */
+code,
+pre {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}

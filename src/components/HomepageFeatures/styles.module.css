@@ -1,0 +1,185 @@
+.features {
+  padding: 4rem 0 6rem;
+  width: 100%;
+  background: linear-gradient(180deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+  position: relative;
+}
+
+[data-theme='dark'] .features {
+  background: linear-gradient(180deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+}
+
+.featuresRow {
+  gap: 0.75rem;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.featuresRow .col {
+  padding-left: 0.375rem !important;
+  padding-right: 0.375rem !important;
+  flex: 0 0 calc(33.333% - 0.5rem);
+  max-width: calc(33.333% - 0.5rem);
+}
+
+.featureCard {
+  padding: 2.5rem 1.25rem;
+  background: rgba(245, 248, 255, 0.8);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 122, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+[data-theme='dark'] .featureCard {
+  background: rgba(20, 25, 40, 0.8);
+  border-color: rgba(10, 132, 255, 0.2);
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #007AFF, #66B3FF);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featureCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 122, 255, 0.15);
+  border-color: rgba(0, 122, 255, 0.3);
+}
+
+.featureCard:hover::before {
+  transform: scaleX(1);
+}
+
+.featureIcon {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.featureSvg {
+  height: 140px;
+  width: 140px;
+  opacity: 0.85;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 4px 12px rgba(0, 122, 255, 0.15));
+}
+
+.featureCard:hover .featureSvg {
+  opacity: 1;
+  transform: translateY(-8px) scale(1.05);
+  filter: drop-shadow(0 12px 32px rgba(0, 122, 255, 0.25));
+}
+
+.featureContent {
+  text-align: center;
+}
+
+.featureTitle {
+  color: var(--ifm-heading-color);
+  font-weight: 600;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.featureDescription {
+  color: var(--ifm-color-content);
+  line-height: 1.7;
+  font-size: 1.0625rem;
+  margin: 0;
+}
+
+.featureDescription code {
+  background-color: var(--ifm-code-background);
+  color: var(--ifm-code-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.terminalSnippet {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 122, 255, 0.2);
+  display: flex;
+  align-items: center;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .terminalSnippet {
+  background: rgba(13, 13, 13, 0.8);
+  border-color: rgba(10, 132, 255, 0.3);
+}
+
+.featureCard:hover .terminalSnippet {
+  border-color: rgba(0, 122, 255, 0.4);
+  background: rgba(30, 30, 30, 0.8);
+}
+
+[data-theme='dark'] .featureCard:hover .terminalSnippet {
+  background: rgba(13, 13, 13, 1);
+  border-color: rgba(10, 132, 255, 0.5);
+}
+
+.terminalPromptSmall {
+  color: #007AFF;
+  margin-right: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+[data-theme='dark'] .terminalPromptSmall {
+  color: #0A84FF;
+}
+
+.terminalCommandSmall {
+  color: #E0E0E0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  background: none;
+  padding: 0;
+  border: none;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+[data-theme='dark'] .terminalCommandSmall {
+  color: #F5F5F7;
+}
+
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 3rem 0 4rem;
+  }
+  
+  .featuresRow {
+    gap: 1.5rem;
+  }
+  
+  .featureCard {
+    padding: 2rem 1.5rem;
+  }
+  
+  .featureSvg {
+    height: 120px;
+    width: 120px;
+  }
+}
