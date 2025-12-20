@@ -20,7 +20,7 @@ function HomepageHeader() {
           </Heading>
           <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
           <p className={styles.heroDescription}>
-            Generate AI-based investment strategies and backtest results within seconds.
+            Generate strategies and backtest results within seconds.
           </p>
           <div className={styles.terminalWindow}>
             <div className={styles.terminalHeader}>

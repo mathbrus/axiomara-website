@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'DeepAlphaResearch',
-  tagline: 'Advanced research and development',
+  tagline: 'Open-source AI-based investment strategies research platform',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

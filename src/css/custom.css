@@ -4,76 +4,95 @@
  * work well for content-centric websites.
  */
 
-/* Apple-inspired blue/white tech theme */
+/* Academic Research Theme - Sophisticated and Polished */
 :root {
-  /* Primary blue colors - Apple developer blue */
-  --ifm-color-primary: #007AFF;
-  --ifm-color-primary-dark: #0051D5;
-  --ifm-color-primary-darker: #0047B8;
-  --ifm-color-primary-darkest: #003A96;
-  --ifm-color-primary-light: #1A8CFF;
-  --ifm-color-primary-lighter: #3399FF;
-  --ifm-color-primary-lightest: #66B3FF;
+  /* Academic Color Palette */
+  --academic-navy: #1B3A57;
+  --academic-burgundy: #8B2635;
+  --academic-slate: #4A5568;
+  --academic-ivory: #F7F5F3;
+  --academic-charcoal: #2C3E50;
+  --academic-cambridge: #A8C5D2;
+  --academic-parchment: #F9F7F4;
   
-  /* Background colors - clean white */
-  --ifm-background-color: #FFFFFF;
-  --ifm-background-surface-color: #F5F5F7;
+  /* Primary colors - Deep Navy */
+  --ifm-color-primary: #1B3A57;
+  --ifm-color-primary-dark: #152A42;
+  --ifm-color-primary-darker: #112438;
+  --ifm-color-primary-darkest: #0D1E2E;
+  --ifm-color-primary-light: #2A4F6D;
+  --ifm-color-primary-lighter: #3A6483;
+  --ifm-color-primary-lightest: #4A7999;
+  
+  /* Background colors - Warm Ivory */
+  --ifm-background-color: #F7F5F3;
+  --ifm-background-surface-color: #F9F7F4;
   
   /* Text colors */
-  --ifm-font-color-base: #1D1D1F;
-  --ifm-heading-color: #1D1D1F;
-  --ifm-color-content: #424245;
-  --ifm-color-content-secondary: #6E6E73;
+  --ifm-font-color-base: #2C3E50;
+  --ifm-heading-color: #1B3A57;
+  --ifm-color-content: #4A5568;
+  --ifm-color-content-secondary: #6B7280;
   
   /* Code styling */
   --ifm-code-font-size: 95%;
-  --ifm-code-background: #F5F5F7;
-  --ifm-code-color: #007AFF;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 122, 255, 0.1);
+  --ifm-code-background: #F0EDEA;
+  --ifm-code-color: #1B3A57;
+  --docusaurus-highlighted-code-line-bg: rgba(27, 58, 87, 0.1);
   
-  /* Borders and shadows - subtle Apple style */
-  --ifm-border-color: #E5E5E7;
-  --ifm-hr-border-color: #E5E5E7;
-  --ifm-navbar-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05);
-  --ifm-card-border-radius: 12px;
+  /* Borders and shadows - Academic style */
+  --ifm-border-color: #D4D1CE;
+  --ifm-hr-border-color: #D4D1CE;
+  --ifm-navbar-shadow: 0 1px 3px rgba(27, 58, 87, 0.08);
+  --ifm-card-border-radius: 4px;
   
-  /* Spacing - generous like Apple */
+  /* Spacing - Generous academic spacing */
   --ifm-spacing-horizontal: 1.5rem;
   
-  /* Typography */
+  /* Typography - Apple-like system fonts */
   --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --ifm-heading-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --ifm-heading-font-weight: 600;
   --ifm-font-weight-semibold: 600;
+  --ifm-line-height-base: 1.75;
 }
 
-/* Dark mode - subtle dark theme */
+/* Dark mode - Academic Night Theme (Polished) */
 [data-theme='dark'] {
-  --ifm-color-primary: #0A84FF;
-  --ifm-color-primary-dark: #0051D5;
-  --ifm-color-primary-darker: #0047B8;
-  --ifm-color-primary-darkest: #003A96;
-  --ifm-color-primary-light: #1A8CFF;
-  --ifm-color-primary-lighter: #3399FF;
-  --ifm-color-primary-lightest: #66B3FF;
+  --academic-navy: #0D1E2E;
+  --academic-burgundy: #C85A6B;
+  --academic-slate: #8B95A6;
+  --academic-ivory: #0D1E2E;
+  --academic-charcoal: #1A2B3D;
+  --academic-cambridge: #6BA3C4;
+  --academic-parchment: #1A2B3D;
   
-  --ifm-background-color: #000000;
-  --ifm-background-surface-color: #1C1C1E;
+  --ifm-color-primary: #4A7999;
+  --ifm-color-primary-dark: #3A6483;
+  --ifm-color-primary-darker: #2E4A6B;
+  --ifm-color-primary-darkest: #1B3A57;
+  --ifm-color-primary-light: #5B8FAF;
+  --ifm-color-primary-lighter: #6CA5BF;
+  --ifm-color-primary-lightest: #7DBBCF;
   
-  --ifm-font-color-base: #F5F5F7;
+  --ifm-background-color: #0D1E2E;
+  --ifm-background-surface-color: #1A2B3D;
+  
+  --ifm-font-color-base: #E8EBED;
   --ifm-heading-color: #FFFFFF;
-  --ifm-color-content: #EBEBF5;
-  --ifm-color-content-secondary: #98989D;
+  --ifm-color-content: #D1D5D9;
+  --ifm-color-content-secondary: #A8ADB3;
   
-  --ifm-code-background: #1C1C1E;
-  --ifm-code-color: #0A84FF;
-  --docusaurus-highlighted-code-line-bg: rgba(10, 132, 255, 0.2);
+  --ifm-code-background: #1A2B3D;
+  --ifm-code-color: #6BA3C4;
+  --docusaurus-highlighted-code-line-bg: rgba(74, 121, 153, 0.25);
   
-  --ifm-border-color: #38383A;
-  --ifm-hr-border-color: #38383A;
-  --ifm-navbar-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  --ifm-border-color: #2A3B4D;
+  --ifm-hr-border-color: #2A3B4D;
+  --ifm-navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Global Apple-inspired styling */
+/* Global Academic styling */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -82,27 +101,69 @@ html {
 body {
   font-weight: 400;
   letter-spacing: -0.011em;
+  line-height: 1.75;
 }
 
-/* Navbar styling */
+/* Apple-like heading styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Navbar styling - Academic formal */
 .navbar {
   backdrop-filter: saturate(180%) blur(20px);
-  background-color: rgba(255, 255, 255, 0.8);
-  border-bottom: 0.5px solid var(--ifm-border-color);
+  background-color: rgba(247, 245, 243, 0.95);
+  border-bottom: 1px solid var(--ifm-border-color);
+  box-shadow: var(--ifm-navbar-shadow);
 }
 
 [data-theme='dark'] .navbar {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(13, 30, 46, 0.95);
+  border-bottom-color: var(--ifm-border-color);
 }
 
-/* Hero section - Apple style */
+/* Hero section - Academic style */
 .hero {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F7 100%);
+  background: linear-gradient(180deg, var(--academic-ivory) 0%, var(--academic-parchment) 100%);
   padding: 6rem 0;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(27, 58, 87, 0.02) 2px,
+      rgba(27, 58, 87, 0.02) 4px
+    );
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 [data-theme='dark'] .hero {
-  background: linear-gradient(180deg, #000000 0%, #1C1C1E 100%);
+  background: linear-gradient(180deg, var(--academic-navy) 0%, var(--academic-parchment) 100%);
+}
+
+[data-theme='dark'] .hero::before {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(74, 121, 153, 0.03) 2px,
+      rgba(74, 121, 153, 0.03) 4px
+    );
 }
 
 .hero__title {
@@ -120,48 +181,83 @@ body {
   margin-bottom: 2rem;
 }
 
-/* Buttons - Apple style */
+/* Buttons - Academic formal style */
 .button {
-  border-radius: 20px;
+  border-radius: 2px;
   font-weight: 500;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.2s ease;
-  border: none;
+  padding: 0.875rem 2rem;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  letter-spacing: 0.02em;
+  font-family: var(--ifm-font-family-base);
 }
 
 .button--primary {
   background: var(--ifm-color-primary);
   color: white;
+  border-color: var(--ifm-color-primary);
 }
 
 .button--primary:hover {
   background: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(27, 58, 87, 0.25);
+  color: white;
+}
+
+[data-theme='dark'] .button--primary {
+  box-shadow: 0 4px 16px rgba(74, 121, 153, 0.3);
+}
+
+[data-theme='dark'] .button--primary:hover {
+  box-shadow: 0 8px 24px rgba(74, 121, 153, 0.4);
+  background: var(--ifm-color-primary-light);
+  border-color: var(--ifm-color-primary-light);
 }
 
 .button--secondary {
-  background: var(--ifm-background-surface-color);
+  background: transparent;
   color: var(--ifm-color-primary);
-  border: 1px solid var(--ifm-border-color);
+  border-color: var(--ifm-color-primary);
 }
 
 .button--secondary:hover {
   background: var(--ifm-color-primary);
   color: white;
   border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 58, 87, 0.15);
 }
 
-/* Cards and features */
+[data-theme='dark'] .button--secondary:hover {
+  box-shadow: 0 4px 16px rgba(74, 121, 153, 0.25);
+}
+
+/* Cards and features - Academic paper style */
 .card {
   border-radius: var(--ifm-card-border-radius);
-  border: 0.5px solid var(--ifm-border-color);
-  transition: all 0.2s ease;
+  border: 1px solid var(--ifm-border-color);
+  transition: all 0.3s ease;
+  background: var(--academic-parchment);
+  box-shadow: 0 2px 8px rgba(27, 58, 87, 0.06);
+}
+
+[data-theme='dark'] .card {
+  background: var(--academic-parchment);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-color: var(--ifm-border-color);
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27, 58, 87, 0.12);
+  border-color: var(--academic-cambridge);
+}
+
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border-color: var(--academic-cambridge);
 }
 
 /* Code blocks */
@@ -204,8 +300,9 @@ a:focus-visible {
   border-radius: 4px;
 }
 
-/* Terminal-inspired monospace font stack */
+/* Apple-like monospace font stack */
 code,
 pre {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  line-height: 1.6;
 }
