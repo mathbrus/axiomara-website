@@ -16,7 +16,7 @@ const config: Config = {
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-openapi-docs'],
 
   url: 'https://deepalpharesearch.com',
   baseUrl: '/',
@@ -56,6 +56,35 @@ const config: Config = {
     },
   ],
 
+  plugins: [
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: 'api',
+        docsPluginId: 'api-docs',
+        config: {
+          backend: {
+            specPath: 'openapi/openapi.json',
+            outputDir: 'api-docs',
+            sidebarOptions: {
+              groupPathsBy: 'tag',
+            },
+          },
+        },
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'api-docs',
+        path: 'api-docs',
+        routeBasePath: 'api',
+        docItemComponent: '@theme/ApiItem',
+        sidebarPath: './api-docs/sidebar.ts',
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -89,6 +118,11 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Documentation',
+        },
+        {
+          to: '/api/backend-api',
+          position: 'left',
+          label: 'API Reference',
         },
       ],
     },
