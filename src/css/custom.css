@@ -1,263 +1,222 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
-
-/* Academic Research Theme - Sophisticated and Polished */
 :root {
-  /* Academic Color Palette */
-  --academic-navy: #1B3A57;
-  --academic-burgundy: #8B2635;
-  --academic-ivory: #F7F5F3;
-  --academic-cambridge: #A8C5D2;
-  --academic-parchment: #F9F7F4;
-  
-  /* Primary colors - Deep Navy */
-  --ifm-color-primary: #1B3A57;
-  --ifm-color-primary-dark: #152A42;
-  --ifm-color-primary-darker: #112438;
-  --ifm-color-primary-darkest: #0D1E2E;
-  --ifm-color-primary-light: #2A4F6D;
-  --ifm-color-primary-lighter: #3A6483;
-  --ifm-color-primary-lightest: #4A7999;
-  
-  /* Background colors - Warm Ivory */
-  --ifm-background-color: #F7F5F3;
-  --ifm-background-surface-color: #F9F7F4;
-  
-  /* Text colors */
-  --ifm-font-color-base: #2C3E50;
-  --ifm-heading-color: #1B3A57;
-  --ifm-color-content: #4A5568;
-  --ifm-color-content-secondary: #6B7280;
-  
-  /* Code styling */
+  /* Brand colors */
+  --color-crimson: #b11226;
+  --color-navy: #123a6f;
+  --color-sidebar-bg: #060a12;
+
+  /* Surfaces */
+  --color-workspace: #eef0f2;
+  --color-card: #ffffff;
+  --color-border: #e5e7eb;
+
+  /* Text */
+  --color-text: #171717;
+  --color-text-muted: #6b7280;
+
+  /* Semantic */
+  --color-success: #16a34a;
+  --color-warning: #ca8a04;
+  --color-danger: #dc2626;
+
+  /* Infima overrides — primary is crimson */
+  --ifm-color-primary: #b11226;
+  --ifm-color-primary-dark: #9e1022;
+  --ifm-color-primary-darker: #950f20;
+  --ifm-color-primary-darkest: #7b0d1a;
+  --ifm-color-primary-light: #c4142a;
+  --ifm-color-primary-lighter: #cd152c;
+  --ifm-color-primary-lightest: #da2a40;
+
+  /* Backgrounds */
+  --ifm-background-color: #eef0f2;
+  --ifm-background-surface-color: #f3f4f6;
+
+  /* Text */
+  --ifm-font-color-base: #171717;
+  --ifm-heading-color: #171717;
+  --ifm-color-content: #171717;
+  --ifm-color-content-secondary: #6b7280;
+
+  /* Code */
   --ifm-code-font-size: 95%;
-  --ifm-code-background: #F0EDEA;
-  --ifm-code-color: #1B3A57;
-  --docusaurus-highlighted-code-line-bg: rgba(27, 58, 87, 0.1);
-  
-  /* Borders and shadows - Academic style */
-  --ifm-border-color: #D4D1CE;
-  --ifm-hr-border-color: #D4D1CE;
-  --ifm-navbar-shadow: 0 1px 3px rgba(27, 58, 87, 0.08);
+  --ifm-code-background: #f3f4f6;
+  --ifm-code-color: #123a6f;
+  --docusaurus-highlighted-code-line-bg: rgba(18, 58, 111, 0.1);
+
+  /* Borders */
+  --ifm-border-color: #e5e7eb;
+  --ifm-hr-border-color: #e5e7eb;
   --ifm-card-border-radius: 4px;
-  
-  /* Spacing - Generous academic spacing */
-  --ifm-spacing-horizontal: 1.5rem;
-  
-  /* Typography - Apple-like system fonts */
-  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --ifm-heading-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Typography — Inter */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-heading-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-size-base: 0.9375rem;
   --ifm-heading-font-weight: 600;
   --ifm-font-weight-semibold: 600;
-  --ifm-line-height-base: 1.75;
+  --ifm-line-height-base: 1.65;
+
+  /* Spacing */
+  --ifm-spacing-horizontal: 1.25rem;
+
+  /* Navbar */
+  --ifm-navbar-shadow: none;
 }
 
-/* Dark mode - Academic Night Theme (Polished) */
-[data-theme='dark'] {
-  --academic-navy: #0D1E2E;
-  --academic-burgundy: #C85A6B;
-  --academic-ivory: #0D1E2E;
-  --academic-cambridge: #6BA3C4;
-  --academic-parchment: #1A2B3D;
-  
-  --ifm-color-primary: #4A7999;
-  --ifm-color-primary-dark: #3A6483;
-  --ifm-color-primary-darker: #2E4A6B;
-  --ifm-color-primary-darkest: #1B3A57;
-  --ifm-color-primary-light: #5B8FAF;
-  --ifm-color-primary-lighter: #6CA5BF;
-  --ifm-color-primary-lightest: #7DBBCF;
-  
-  --ifm-background-color: #0D1E2E;
-  --ifm-background-surface-color: #1A2B3D;
-  
-  --ifm-font-color-base: #E8EBED;
-  --ifm-heading-color: #FFFFFF;
-  --ifm-color-content: #D1D5D9;
-  --ifm-color-content-secondary: #A8ADB3;
-  
-  --ifm-code-background: #1A2B3D;
-  --ifm-code-color: #6BA3C4;
-  --docusaurus-highlighted-code-line-bg: rgba(74, 121, 153, 0.25);
-  
-  --ifm-border-color: #2A3B4D;
-  --ifm-hr-border-color: #2A3B4D;
-  --ifm-navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
+/* ── Global ── */
 
-/* Global Academic styling */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   font-weight: 400;
   letter-spacing: -0.011em;
-  line-height: 1.75;
 }
 
-/* Apple-like heading styles */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--ifm-heading-font-family);
-  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
-/* Navbar styling - Academic formal */
+/* ── Navbar ── */
+
 .navbar {
-  backdrop-filter: saturate(180%) blur(20px);
-  background-color: rgba(247, 245, 243, 0.95);
-  border-bottom: 1px solid var(--ifm-border-color);
-  box-shadow: var(--ifm-navbar-shadow);
+  background-color: var(--color-sidebar-bg);
+  border-bottom: 1px solid rgba(18, 58, 111, 0.3);
 }
 
-[data-theme='dark'] .navbar {
-  background-color: rgba(13, 30, 46, 0.95);
-  border-bottom-color: var(--ifm-border-color);
+.navbar__title {
+  color: #ffffff;
+  font-weight: 600;
 }
 
-/* Hero section - Academic style */
-.hero {
-  background: linear-gradient(180deg, var(--academic-ivory) 0%, var(--academic-parchment) 100%);
-  padding: 6rem 0;
+.navbar__link {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 150ms ease;
+}
+
+.navbar__link:hover {
+  color: #ffffff;
+}
+
+.navbar__link--active {
+  color: #ffffff;
   position: relative;
 }
 
-.hero::before {
-  content: '';
+.navbar__link--active::after {
+  content: '|';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 2px,
-      rgba(27, 58, 87, 0.02) 2px,
-      rgba(27, 58, 87, 0.02) 4px
-    );
-  pointer-events: none;
-  opacity: 0.3;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-crimson);
+  font-weight: 700;
+  font-size: 1rem;
+  animation: blink-cursor 1s step-end infinite;
 }
 
-[data-theme='dark'] .hero {
-  background: linear-gradient(180deg, var(--academic-navy) 0%, var(--academic-parchment) 100%);
+@keyframes blink-cursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
-[data-theme='dark'] .hero::before {
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 2px,
-      rgba(74, 121, 153, 0.03) 2px,
-      rgba(74, 121, 153, 0.03) 4px
-    );
-}
+/* ── Buttons ── */
 
-/* Buttons - Academic formal style */
 .button {
   border-radius: 2px;
   font-weight: 500;
-  padding: 0.875rem 2rem;
-  transition: all 0.3s ease;
+  padding: 0.75rem 1.75rem;
   border: 1px solid;
   letter-spacing: 0.02em;
   font-family: var(--ifm-font-family-base);
+  transition: opacity 150ms ease, transform 150ms ease, box-shadow 150ms ease;
 }
 
 .button--primary {
-  background: var(--ifm-color-primary);
-  color: white;
-  border-color: var(--ifm-color-primary);
+  background: var(--color-crimson);
+  color: #ffffff;
+  border-color: var(--color-crimson);
 }
 
 .button--primary:hover {
-  background: var(--ifm-color-primary-dark);
-  border-color: var(--ifm-color-primary-dark);
+  opacity: 0.88;
+  color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(27, 58, 87, 0.25);
-  color: white;
-}
-
-[data-theme='dark'] .button--primary {
-  box-shadow: 0 4px 16px rgba(74, 121, 153, 0.3);
-}
-
-[data-theme='dark'] .button--primary:hover {
-  box-shadow: 0 8px 24px rgba(74, 121, 153, 0.4);
-  background: var(--ifm-color-primary-light);
-  border-color: var(--ifm-color-primary-light);
+  box-shadow: 0 4px 12px rgba(177, 18, 38, 0.3);
 }
 
 .button--secondary {
-  background: transparent;
-  color: var(--ifm-color-primary);
-  border-color: var(--ifm-color-primary);
+  background: var(--color-navy);
+  color: #ffffff;
+  border-color: var(--color-navy);
 }
 
 .button--secondary:hover {
-  background: var(--ifm-color-primary);
-  color: white;
-  border-color: var(--ifm-color-primary);
+  opacity: 0.88;
+  color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(27, 58, 87, 0.15);
+  box-shadow: 0 4px 12px rgba(18, 58, 111, 0.3);
 }
 
-[data-theme='dark'] .button--secondary:hover {
-  box-shadow: 0 4px 16px rgba(74, 121, 153, 0.25);
+.button--outline {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-border);
 }
 
-/* Code blocks */
+.button--outline:hover {
+  background: var(--color-navy);
+  color: #ffffff;
+  border-color: var(--color-navy);
+}
+
+.button--danger {
+  background: var(--color-danger);
+  color: #ffffff;
+  border-color: var(--color-danger);
+}
+
+.button--danger:hover {
+  opacity: 0.88;
+  color: #ffffff;
+}
+
+/* ── Code blocks ── */
+
 .prism-code {
-  border-radius: 8px;
-  border: 0.5px solid var(--ifm-border-color);
+  border-radius: 4px;
+  border: 1px solid var(--ifm-border-color);
 }
 
-/* Footer */
+code, pre {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', monospace;
+  line-height: 1.6;
+}
+
+/* ── Footer ── */
+
 .footer {
-  background-color: var(--ifm-background-surface-color);
-  border-top: 0.5px solid var(--ifm-border-color);
+  background-color: var(--color-sidebar-bg);
+  border-top: 1px solid rgba(18, 58, 111, 0.3);
+  padding: 1.5rem 0;
 }
 
-/* Smooth transitions */
-* {
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+.footer__copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8125rem;
 }
 
-/* Premium scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
+/* ── Focus states ── */
 
-/* Enhanced hero section styling */
-.hero--primary {
-  position: relative;
-}
-
-/* Premium section spacing */
-section {
-  position: relative;
-}
-
-/* Enhanced focus states for accessibility */
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--ifm-color-primary);
+  outline: 2px solid var(--color-crimson);
   outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* Apple-like monospace font stack */
-code,
-pre {
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace;
-  line-height: 1.6;
+  border-radius: 2px;
 }

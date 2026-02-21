@@ -1,0 +1,332 @@
+TASK: Convert raw markdown documentation files into Docusaurus-ready documentation pages.
+
+SOURCE: raw_markdowns/
+TARGET: docs/
+
+This prompt describes how to transform raw markdown files from the raw_markdowns/ directory
+into properly formatted Docusaurus documentation pages in the docs/ directory. Follow every
+step precisely. Apply this process whenever new raw markdown files are added or existing ones
+are updated.
+
+================================================================================
+PREREQUISITES (one-time setup — skip if already done)
+================================================================================
+
+1. Install the Mermaid theme for diagram rendering:
+
+   npm install @docusaurus/theme-mermaid
+
+2. Ensure docusaurus.config.ts has the following top-level keys:
+
+   markdown: {
+     mermaid: true,
+   },
+   themes: ['@docusaurus/theme-mermaid'],
+
+   Add them if missing. Do not duplicate them if they already exist.
+
+3. The Tabs component is built into @docusaurus/preset-classic (already installed).
+   No additional package is needed for tabs.
+
+================================================================================
+STEP 1 — Place files into docs/
+================================================================================
+
+Copy each file from raw_markdowns/ into docs/, with one special rule and one general rule.
+
+SPECIAL RULE — getting_started/overview.md becomes docs/intro.md:
+
+  The file raw_markdowns/getting_started/overview.md is the documentation landing page.
+  Its content REPLACES the content of docs/intro.md (the existing Docusaurus intro page).
+
+  - Overwrite docs/intro.md with the content of getting_started/overview.md.
+  - Do NOT create a docs/getting_started/ subdirectory.
+  - The getting_started/ folder from raw_markdowns/ should produce NO directory in docs/.
+
+  This ensures users land directly on the Getting Started guide when they open the docs,
+  instead of hitting an empty welcome page.
+
+GENERAL RULE — all other files preserve their directory structure:
+
+  raw_markdowns/architecture/overview.md  →  docs/architecture/overview.md
+  raw_markdowns/engine/overview.md        →  docs/engine/overview.md
+  raw_markdowns/strategy/overview.md      →  docs/strategy/overview.md
+  raw_markdowns/trading/overview.md       →  docs/trading/overview.md
+
+  If new subdirectories appear in raw_markdowns/ (other than getting_started/), mirror
+  them into docs/ following the same pattern.
+
+  If a file already exists in docs/, overwrite it with the newly transformed version.
+
+================================================================================
+STEP 2 — Add Docusaurus front matter
+================================================================================
+
+Prepend YAML front matter to each markdown file. The front matter controls the sidebar
+label and the ordering within its category.
+
+Format:
+  ---
+  sidebar_position: <number>
+  sidebar_label: "<Display Name>"
+  ---
+
+For docs/intro.md specifically, use:
+  ---
+  sidebar_position: 1
+  sidebar_label: "Getting Started"
+  slug: /intro
+  ---
+
+Rules for other files:
+- sidebar_position determines the order of pages WITHIN their folder/category.
+- If a folder contains only one file (e.g., overview.md), set sidebar_position: 1.
+- If a folder contains multiple files, number them in logical reading order.
+- sidebar_label should match the category display name when the file is the primary
+  (or only) document in its category (e.g., "Architecture", "Trading Engine").
+  This ensures the sidebar shows the category name rather than a generic "Overview".
+- For additional files within a category, use a clean, human-readable name.
+
+================================================================================
+STEP 3 — Create _category_.json for each subdirectory
+================================================================================
+
+For every subdirectory inside docs/ that was created or updated from raw_markdowns/,
+create (or update) a _category_.json file that controls the sidebar category.
+
+Do NOT create a _category_.json for getting_started — that content lives in docs/intro.md.
+
+Format:
+  {
+    "label": "<Category Display Name>",
+    "position": <number>,
+    "collapsed": false,
+    "link": {
+      "type": "doc",
+      "id": "<directory>/<doc_name>"
+    }
+  }
+
+The "link" property makes the category label itself a clickable link that navigates
+directly to the specified document. This way users do not have to expand the category
+and click a child item — clicking the category heading takes them straight to the page.
+
+The "id" value is the document path relative to docs/ without the .md extension
+(e.g., "architecture/overview" for docs/architecture/overview.md).
+
+Use the following ordering (adjust if new categories are added):
+
+  | Directory    | Label              | Position | Link id                |
+  |--------------|--------------------|----------|------------------------|
+  | architecture | Architecture       | 2        | architecture/overview  |
+  | engine       | Trading Engine     | 3        | engine/overview        |
+  | strategy     | Strategy Framework | 4        | strategy/overview      |
+  | trading      | Trading Module     | 5        | trading/overview       |
+
+Position 1 is reserved for docs/intro.md (Getting Started).
+
+If a new directory appears in raw_markdowns/ that is not in this table (and is not
+getting_started), assign it the next available position number, choose a clear label,
+and set the link id to the primary document in that directory.
+
+================================================================================
+STEP 4 — Fix internal cross-reference links
+================================================================================
+
+Docusaurus resolves doc links without the .md extension. Transform all internal links
+by removing the .md extension:
+
+  BEFORE: [Link Text](../architecture/overview.md)
+  AFTER:  [Link Text](../architecture/overview)
+
+Apply this to ALL relative links pointing to other docs within raw_markdowns/.
+
+SPECIAL CASE — links pointing to getting_started/overview.md:
+
+  Because that file now lives at docs/intro.md, adjust the path accordingly.
+
+  From a file inside a subdirectory (e.g., docs/architecture/overview.md):
+    BEFORE: [Link Text](../getting_started/overview.md)
+    AFTER:  [Link Text](../intro)
+
+  From docs/intro.md itself (self-links or sibling references):
+    Links to other categories use relative paths from the docs root:
+    BEFORE: [Link Text](../architecture/overview.md)
+    AFTER:  [Link Text](./architecture/overview)
+
+    BEFORE: [Link Text](../engine/overview.md)
+    AFTER:  [Link Text](./engine/overview)
+
+    (intro.md is at the docs root, so use ./ instead of ../ to reach sibling directories)
+
+For links that point OUTSIDE the docs tree (e.g., ../../tests/integration/README.md),
+remove the link and keep only the text. These external repository paths do not exist on
+the documentation website.
+
+================================================================================
+STEP 5 — Convert Python / curl code snippet pairs into Tabs
+================================================================================
+
+The raw markdowns use a pattern of consecutive "#### Python" and "#### curl" subheadings
+to show the same operation in two languages. Convert every such pair into a Docusaurus
+Tabs component for a cleaner UI.
+
+5a. Add the Tabs import at the TOP of the file (after the front matter, before any content):
+
+  import Tabs from '@theme/Tabs';
+  import TabItem from '@theme/TabItem';
+
+  Only add this import ONCE per file, even if the file has many tab groups.
+  Only add this import if the file actually contains Python/curl pairs.
+
+5b. Identify every occurrence of the following pattern:
+
+  #### Python
+
+  ```python
+  <python code>
+  ```
+
+  #### curl
+
+  ```bash
+  <curl code>
+  ```
+
+  There may be explanatory text between the heading and the code block. Include that text
+  inside the TabItem.
+
+5c. Replace each pair with:
+
+  <Tabs>
+    <TabItem value="python" label="Python">
+
+  ```python
+  <python code>
+  ```
+
+    </TabItem>
+    <TabItem value="curl" label="curl">
+
+  ```bash
+  <curl code>
+  ```
+
+    </TabItem>
+  </Tabs>
+
+IMPORTANT formatting rules for Tabs:
+- There MUST be a blank line after <TabItem ...> before the code fence.
+- There MUST be a blank line after the closing code fence before </TabItem>.
+- There MUST be a blank line after <Tabs> before the first <TabItem>.
+- There MUST be a blank line after </Tabs> before subsequent content.
+- Without these blank lines, Docusaurus will NOT parse the markdown inside the tabs.
+- If there is explanatory text between the heading and the code block, include it inside
+  the TabItem, with blank lines separating it from the JSX tags.
+
+5d. Remove the #### Python and #### curl headings — they are replaced by the tab labels.
+
+5e. If a section has ONLY a Python example or ONLY a curl example (no pair), leave it as
+    a regular code block with its heading. Do not wrap single snippets in Tabs.
+
+================================================================================
+STEP 6 — Handle <details> / <summary> blocks
+================================================================================
+
+Some raw markdowns use HTML <details> and <summary> tags for collapsible sections.
+These work in Docusaurus, but require blank lines between HTML tags and markdown content.
+
+Ensure:
+- There is a blank line AFTER the closing </summary> tag before any markdown content.
+- There is a blank line BEFORE the closing </details> tag after any markdown content.
+
+================================================================================
+STEP 7 — Validate
+================================================================================
+
+After all transformations:
+
+1. Run `npm run build` to verify the site builds without errors.
+2. Check for broken links — Docusaurus is configured with `onBrokenLinks: 'throw'` and
+   will fail the build if any link is invalid.
+3. If the build fails due to a broken link, fix it (remove the link or correct the path).
+4. If the build fails due to MDX parsing errors, check for missing blank lines around
+   JSX tags (Tabs, TabItem, details, summary).
+
+================================================================================
+REFERENCE: Full Tabs example
+================================================================================
+
+Below is a complete before/after example for clarity.
+
+BEFORE (raw markdown):
+-----------------------
+
+### 3.1 List Strategies
+
+#### Python
+
+```python
+strategies = client.strategies.list()
+
+for s in strategies:
+    print(f"{s.name} v{s.version} — {s.description}")
+```
+
+#### curl
+
+```bash
+curl -s http://localhost:8000/api/strategies/ | python3 -m json.tool
+```
+
+Each strategy object contains `name`, `version`, `description`, and `parameters`.
+
+
+AFTER (Docusaurus-ready):
+-------------------------
+
+### 3.1 List Strategies
+
+<Tabs>
+  <TabItem value="python" label="Python">
+
+```python
+strategies = client.strategies.list()
+
+for s in strategies:
+    print(f"{s.name} v{s.version} — {s.description}")
+```
+
+  </TabItem>
+  <TabItem value="curl" label="curl">
+
+```bash
+curl -s http://localhost:8000/api/strategies/ | python3 -m json.tool
+```
+
+  </TabItem>
+</Tabs>
+
+Each strategy object contains `name`, `version`, `description`, and `parameters`.
+
+================================================================================
+CHECKLIST
+================================================================================
+
+Before considering the task complete, verify:
+
+[ ] getting_started/overview.md content has replaced docs/intro.md
+[ ] No docs/getting_started/ directory exists
+[ ] All other files from raw_markdowns/ are in docs/ with correct structure
+[ ] docs/intro.md has front matter with sidebar_position: 1, slug: /intro
+[ ] Every other .md file has YAML front matter (sidebar_position, sidebar_label)
+[ ] Every subdirectory (except getting_started) has a _category_.json file with a link property
+[ ] All internal .md links have been converted (remove .md extension)
+[ ] Links to getting_started/overview have been rewritten to point to ../intro
+[ ] Links from intro.md to sibling categories use ./ prefix (not ../)
+[ ] All external repository links have been removed or replaced with plain text
+[ ] Python/curl pairs have been converted to <Tabs> components
+[ ] Tabs import is present at the top of files that use tabs (once per file)
+[ ] Blank lines surround all JSX tags inside markdown
+[ ] <details>/<summary> blocks have proper blank line spacing
+[ ] `npm run build` succeeds with no errors

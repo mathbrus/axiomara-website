@@ -12,9 +12,13 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className={styles.heroBackground}></div>
       <div className="container">
         <div className={styles.heroContent}>
+          <img
+            src="/img/logo.svg"
+            alt="DeepAlphaResearch Logo"
+            className={styles.heroLogo}
+          />
           <Heading as="h1" className={styles.heroTitle}>
             {siteConfig.title}
           </Heading>
@@ -29,7 +33,7 @@ function HomepageHeader() {
                 <span className={styles.terminalButton}></span>
                 <span className={styles.terminalButton}></span>
               </div>
-              <span className={styles.terminalTitle}>terminal</span>
+
             </div>
             <div className={styles.terminalBody}>
               <div className={styles.terminalLine}>
@@ -53,11 +57,6 @@ function HomepageHeader() {
               className={clsx('button button--primary button--lg', styles.primaryButton)}
               to="/docs/intro">
               Get Started
-            </Link>
-            <Link
-              className={clsx('button button--secondary button--lg', styles.secondaryButton)}
-              to="/docs/intro">
-              View Documentation
             </Link>
           </div>
         </div>

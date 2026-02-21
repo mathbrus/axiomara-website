@@ -1,64 +1,49 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import {Terminal, Container, Github} from 'lucide-react';
 import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Icon: React.ComponentType<{size?: number; strokeWidth?: number; className?: string}>;
   description: ReactNode;
+  command: string;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Multi-Interface',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Usable through UI, CLI, REST API or Python.
-      </>
-    ),
+    Icon: Terminal,
+    description: 'Usable through UI, REST API or Python client.',
+    command: 'curl ...',
   },
   {
-    title: 'Research-Focused',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Comprehensive documentation for developers.
-      </>
-    ),
+    title: 'Run Locally',
+    Icon: Container,
+    description: 'Single Docker Compose application. Run locally.',
+    command: 'docker compose up --build',
   },
   {
     title: 'Open Source',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        All code available on GitHub.
-      </>
-    ),
+    Icon: Github,
+    description: 'All code available on GitHub.',
+    command: 'git clone https://github.com/mathbrus/deepalpharesearch.ai.git',
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
-  const commands = [
-    'deepalpharesearch --start',
-    'deepalpharesearch --docs',
-    'deepalpharesearch --code'
-  ];
-  
-  const commandIndex = title === 'Multi-Interface' ? 0 : title === 'Research-Focused' ? 1 : 2;
-  
+function Feature({title, Icon, description, command}: FeatureItem) {
   return (
     <div className={clsx('col col--4', styles.featureCard)}>
       <div className={styles.featureIcon}>
-        <Svg className={styles.featureSvg} role="img" />
+        <Icon size={36} strokeWidth={1.5} className={styles.featureIconSvg} />
       </div>
       <div className={styles.featureContent}>
         <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
         <p className={styles.featureDescription}>{description}</p>
         <div className={styles.terminalSnippet}>
-          <span className={styles.terminalPromptSmall}>$</span>
-          <code className={styles.terminalCommandSmall}>{commands[commandIndex]}</code>
+          <span className={styles.terminalPrompt}>$</span>
+          <code className={styles.terminalCommand}>{command}</code>
         </div>
       </div>
     </div>

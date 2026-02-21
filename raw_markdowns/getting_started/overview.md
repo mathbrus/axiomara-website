@@ -1,12 +1,3 @@
----
-sidebar_position: 1
-sidebar_label: "Getting Started"
-slug: /intro
----
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Getting Started
 
 This guide walks you through the DeepAlphaResearch.ai platform from first launch to inspecting backtest results. By the end, you will know how to manage strategies, download market data, run experiments, and analyse trial outcomes — using either the **Python client library** or the **REST API** directly.
@@ -15,10 +6,10 @@ Every example assumes the platform is running locally. Python snippets are writt
 
 For deeper coverage of individual topics, see the dedicated documentation:
 
-- [Architecture Overview](./architecture/overview)
-- [Trading Engine Overview](./engine/overview)
-- [Strategy Framework Overview](./strategy/overview)
-- [Trading Module Overview](./trading/overview)
+- [Architecture Overview](../architecture/overview.md)
+- [Trading Engine Overview](../engine/overview.md)
+- [Strategy Framework Overview](../strategy/overview.md)
+- [Trading Module Overview](../trading/overview.md)
 
 ---
 
@@ -155,8 +146,7 @@ This installs the `deepalpharesearch_client` package along with its dependencies
 
 ### 2.2 Create a Client Instance
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 from deepalpharesearch_client import Client
@@ -170,8 +160,7 @@ The `base_url` defaults to `http://localhost:8000` and the request timeout defau
 client = Client(base_url="http://localhost:8000", timeout=60)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 For the REST API, all endpoints live under `http://localhost:8000/api/`. No authentication is required.
 
@@ -179,9 +168,6 @@ For the REST API, all endpoints live under `http://localhost:8000/api/`. No auth
 # Verify the API is reachable
 curl -s http://localhost:8000/api/experiments/ | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 ---
 
@@ -200,8 +186,7 @@ flowchart LR
 
 ### 3.1 List Strategies
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 strategies = client.strategies.list()
@@ -210,22 +195,17 @@ for s in strategies:
     print(f"{s.name} v{s.version} — {s.description}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/strategies/ | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 Each strategy object contains `name`, `version`, `description`, `parameters` (parameter schema with defaults), and a `default_experiment_config` that can serve as a starting point for experiments.
 
 ### 3.2 View Strategy Code
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 code = client.strategies.get("momentum_strategy", "1.0.0")
@@ -233,15 +213,11 @@ code = client.strategies.get("momentum_strategy", "1.0.0")
 print(code.code)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/strategies/momentum_strategy/1.0.0 | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 ### 3.3 Create a New Strategy
 
@@ -259,8 +235,7 @@ flowchart LR
   VALIDATE --> STORE["Upload to MinIO<br/>Insert into PostgreSQL"]
 ```
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 from deepalpharesearch_client.models import StrategyConfig
@@ -308,8 +283,7 @@ result = client.strategies.create(StrategyConfig(raw_code=raw_code))
 print(result)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s -X POST http://localhost:8000/api/strategies/ \
@@ -319,12 +293,9 @@ curl -s -X POST http://localhost:8000/api/strategies/ \
   }' | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 Strategy insertion is **asynchronous** — the API returns immediately with `{"status": "strategy_insertion_submitted"}` and the trading engine processes the insertion in the background. Re-list strategies after a few seconds to confirm it appeared.
 
-> For the full strategy authoring reference, see the [Strategy Framework Overview](./strategy/overview).
+> For the full strategy authoring reference, see the [Strategy Framework Overview](../strategy/overview.md).
 
 ---
 
@@ -341,8 +312,7 @@ flowchart LR
 
 ### 4.1 Request a Download
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 from deepalpharesearch_client.models import CreateMarketDataObjectRequest
@@ -359,8 +329,7 @@ result = client.market_data.create(request)
 print(result)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s -X POST http://localhost:8000/api/market_data/ \
@@ -374,15 +343,11 @@ curl -s -X POST http://localhost:8000/api/market_data/ \
   }' | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 The download is asynchronous. The trading engine connects to the exchange via CCXT, fetches OHLCV candles in batches, and stores them in PostgreSQL. If identical data already exists, it is reused automatically.
 
 ### 4.2 List Market Data Objects
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 market_data_objects = client.market_data.list()
@@ -391,15 +356,11 @@ for md in market_data_objects:
     print(f"{md.id} | {md.exchange} {md.pair} {md.candle_interval} | {md.status}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/market_data/ | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 Each object includes `id`, `exchange`, `pair`, `candle_interval`, `since`, `until`, `status`, and consistency metadata.
 
@@ -407,8 +368,7 @@ Each object includes `id`, `exchange`, `pair`, `candle_interval`, `since`, `unti
 
 Once a download has completed with status `SUCCESS`, you can retrieve the raw candlestick data.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 market_data_id = market_data_objects[0].id
@@ -419,15 +379,11 @@ for c in candles[:3]:
     print(f"{c.timestamp} | O:{c.open} H:{c.high} L:{c.low} C:{c.close} V:{c.volume}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/market_data/<market_data_object_id> | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 ---
 
@@ -470,8 +426,7 @@ flowchart TD
 
 An experiment configuration specifies which strategy to use, the parameter values for each trial, the trading pairs, the date range, and the portfolio setup.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 from deepalpharesearch_client import ExperimentConfig
@@ -508,8 +463,7 @@ result = client.experiments.create(config)
 print(result)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s -X POST http://localhost:8000/api/experiments/ \
@@ -543,9 +497,6 @@ curl -s -X POST http://localhost:8000/api/experiments/ \
   }' | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 Key configuration fields:
 
 | Field | Description |
@@ -561,8 +512,7 @@ Key configuration fields:
 
 Experiment creation is asynchronous. Poll the experiments list to track progress.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 experiments = client.experiments.list()
@@ -571,15 +521,11 @@ for exp in experiments:
     print(f"{exp.id} | {exp.strategy_name} v{exp.strategy_version} | {exp.status}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/experiments/ | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 An experiment transitions through the following statuses:
 
@@ -596,8 +542,7 @@ stateDiagram-v2
 
 Once the experiment completes, you can retrieve the benchmark performance time series. This represents the hypothetical portfolio value if the initial investment had been placed entirely in the benchmark asset.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 experiment_id = experiments[0].id
@@ -608,16 +553,12 @@ for point in benchmark[:5]:
     print(f"{point.timestamp} | Value: {point.portfolio_value:.2f} | ROI: {point.roi:.4f}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/experiments/metrics/benchmark/<experiment_id> \
   | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 ---
 
@@ -636,8 +577,7 @@ flowchart LR
 
 ### 6.1 List Trials
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 experiment_id = experiments[0].id
@@ -648,22 +588,17 @@ for t in trials:
     print(f"{t.id} | {t.status} | created: {t.created_at}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/trials/<experiment_id> | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 ### 6.2 Performance Metrics
 
 Performance metrics capture portfolio value, return on investment (ROI), and net profit at every backtesting cycle.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 trial_id = trials[0].id
@@ -674,23 +609,18 @@ for p in performance[:5]:
     print(f"{p.timestamp} | Value: {p.portfolio_value:.2f} | ROI: {p.roi:.4f} | Profit: {p.net_profit:.2f}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/trials/metrics/performance/<trial_id> \
   | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 ### 6.3 Operations Metrics
 
 Operations metrics track cumulative trading activity at each cycle: total filled orders, completed transfers, and fees paid.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 operations = client.trials.get_operations_metrics(trial_id)
@@ -699,23 +629,18 @@ for o in operations[:5]:
     print(f"{o.timestamp} | Orders: {o.total_filled_orders} | Transfers: {o.total_completed_transfers} | Fees: {o.total_fees_paid:.4f}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s http://localhost:8000/api/trials/metrics/operations/<trial_id> \
   | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 ### 6.4 Trial Logs and Tracebacks
 
 Execution logs contain structured events emitted by the strategy, trading manager, risk manager, and rebalancer during the trial.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 logs = client.trials.get_logs(trial_id)
@@ -728,8 +653,7 @@ else:
     print("No traceback — trial completed successfully.")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 # Logs
@@ -738,9 +662,6 @@ curl -s http://localhost:8000/api/trials/logs/<trial_id> | python3 -m json.tool
 # Traceback (returns null if no failure)
 curl -s http://localhost:8000/api/trials/traceback/<trial_id> | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 ---
 
@@ -769,8 +690,7 @@ The agent supports two scenarios:
 
 ### 7.2 Run the Agent
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 from deepalpharesearch_client.models import AgentRunRequest, LLMRunConfig
@@ -790,8 +710,7 @@ print(f"Status:  {result.status}")
 print(f"\nGenerated code:\n{result.code}")
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s -X POST http://localhost:8000/api/agent/run \
@@ -807,13 +726,9 @@ curl -s -X POST http://localhost:8000/api/agent/run \
   }' | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 To refine the result in a follow-up iteration, pass the `session_id` from the previous run instead of `scenario`:
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 refinement = AgentRunRequest(
@@ -826,8 +741,7 @@ refined = client.agent.run(refinement, timeout=300)
 print(refined.code)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s -X POST http://localhost:8000/api/agent/run \
@@ -842,15 +756,11 @@ curl -s -X POST http://localhost:8000/api/agent/run \
   }' | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 ### 7.3 Accept a Generated Strategy
 
 When you are satisfied with the generated code, accept it to register it as a strategy in the platform.
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 from deepalpharesearch_client.models import AgentAcceptRequest
@@ -859,8 +769,7 @@ accept_result = client.agent.accept(AgentAcceptRequest(session_id=result.session
 print(accept_result.status)
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 curl -s -X POST http://localhost:8000/api/agent/accept \
@@ -870,15 +779,11 @@ curl -s -X POST http://localhost:8000/api/agent/accept \
   }' | python3 -m json.tool
 ```
 
-  </TabItem>
-</Tabs>
-
 Once accepted, the strategy appears in the strategies list and can be used in experiments.
 
 ### 7.4 Inspect Agent Sessions
 
-<Tabs>
-  <TabItem value="python" label="Python">
+#### Python
 
 ```python
 sessions = client.agent.list_sessions()
@@ -894,8 +799,7 @@ logs = client.agent.get_logs(session_id=result.session_id)
 print(logs.logs[:2000])
 ```
 
-  </TabItem>
-  <TabItem value="curl" label="curl">
+#### curl
 
 ```bash
 # List all sessions
@@ -907,9 +811,6 @@ curl -s http://localhost:8000/api/agent/metadata/<session_id> | python3 -m json.
 # Session logs
 curl -s http://localhost:8000/api/agent/logs/<session_id> | python3 -m json.tool
 ```
-
-  </TabItem>
-</Tabs>
 
 ---
 
@@ -933,7 +834,7 @@ Now that you have completed the getting started guide, explore these resources t
 
 | Topic | Documentation |
 |---|---|
-| System design, services, and Docker topology | [Architecture Overview](./architecture/overview) |
-| Engine internals, command dispatch, and component lifecycle | [Trading Engine Overview](./engine/overview) |
-| Strategy authoring, hooks, signals, and the full API reference | [Strategy Framework Overview](./strategy/overview) |
-| Portfolio management, order execution, risk guardrails, and rebalancing | [Trading Module Overview](./trading/overview) |
+| System design, services, and Docker topology | [Architecture Overview](../architecture/overview.md) |
+| Engine internals, command dispatch, and component lifecycle | [Trading Engine Overview](../engine/overview.md) |
+| Strategy authoring, hooks, signals, and the full API reference | [Strategy Framework Overview](../strategy/overview.md) |
+| Portfolio management, order execution, risk guardrails, and rebalancing | [Trading Module Overview](../trading/overview.md) |
