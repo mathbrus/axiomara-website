@@ -120,7 +120,7 @@ const config: Config = {
           label: 'Documentation',
         },
         {
-          to: '/api/backend-api',
+          to: '/api/api-reference-overview',
           position: 'left',
           label: 'API Reference',
         },
