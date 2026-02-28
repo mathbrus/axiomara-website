@@ -1,9 +1,9 @@
 TASK: Convert raw markdown documentation files into Docusaurus-ready documentation pages.
 
-SOURCE: raw_markdowns/
+SOURCE: inputs/documentation_markdowns
 TARGET: docs/
 
-This prompt describes how to transform raw markdown files from the raw_markdowns/ directory
+This prompt describes how to transform raw markdown files from the inputs/documentation_markdowns/ directory
 into properly formatted Docusaurus documentation pages in the docs/ directory. Follow every
 step precisely. Apply this process whenever new raw markdown files are added or existing ones
 are updated.
@@ -32,28 +32,28 @@ PREREQUISITES (one-time setup — skip if already done)
 STEP 1 — Place files into docs/
 ================================================================================
 
-Copy each file from raw_markdowns/ into docs/, with one special rule and one general rule.
+Copy each file from inputs/documentation_markdowns/ into docs/, with one special rule and one general rule.
 
 SPECIAL RULE — getting_started/overview.md becomes docs/intro.md:
 
-  The file raw_markdowns/getting_started/overview.md is the documentation landing page.
+  The file inputs/documentation_markdowns/getting_started/overview.md is the documentation landing page.
   Its content REPLACES the content of docs/intro.md (the existing Docusaurus intro page).
 
   - Overwrite docs/intro.md with the content of getting_started/overview.md.
   - Do NOT create a docs/getting_started/ subdirectory.
-  - The getting_started/ folder from raw_markdowns/ should produce NO directory in docs/.
+  - The getting_started/ folder from inputs/documentation_markdowns/ should produce NO directory in docs/.
 
   This ensures users land directly on the Getting Started guide when they open the docs,
   instead of hitting an empty welcome page.
 
 GENERAL RULE — all other files preserve their directory structure:
 
-  raw_markdowns/architecture/overview.md  →  docs/architecture/overview.md
-  raw_markdowns/engine/overview.md        →  docs/engine/overview.md
-  raw_markdowns/strategy/overview.md      →  docs/strategy/overview.md
-  raw_markdowns/trading/overview.md       →  docs/trading/overview.md
+  inputs/documentation_markdowns/architecture/overview.md  →  docs/architecture/overview.md
+  inputs/documentation_markdowns/engine/overview.md        →  docs/engine/overview.md
+  inputs/documentation_markdowns/strategy/overview.md      →  docs/strategy/overview.md
+  inputs/documentation_markdowns/trading/overview.md       →  docs/trading/overview.md
 
-  If new subdirectories appear in raw_markdowns/ (other than getting_started/), mirror
+  If new subdirectories appear in inputs/documentation_markdowns/ (other than getting_started/), mirror
   them into docs/ following the same pattern.
 
   If a file already exists in docs/, overwrite it with the newly transformed version.
@@ -91,7 +91,7 @@ Rules for other files:
 STEP 3 — Create _category_.json for each subdirectory
 ================================================================================
 
-For every subdirectory inside docs/ that was created or updated from raw_markdowns/,
+For every subdirectory inside docs/ that was created or updated from inputs/documentation_markdowns/,
 create (or update) a _category_.json file that controls the sidebar category.
 
 Do NOT create a _category_.json for getting_started — that content lives in docs/intro.md.
@@ -125,7 +125,7 @@ Use the following ordering (adjust if new categories are added):
 
 Position 1 is reserved for docs/intro.md (Getting Started).
 
-If a new directory appears in raw_markdowns/ that is not in this table (and is not
+If a new directory appears in inputs/documentation_markdowns/ that is not in this table (and is not
 getting_started), assign it the next available position number, choose a clear label,
 and set the link id to the primary document in that directory.
 
@@ -139,7 +139,7 @@ by removing the .md extension:
   BEFORE: [Link Text](../architecture/overview.md)
   AFTER:  [Link Text](../architecture/overview)
 
-Apply this to ALL relative links pointing to other docs within raw_markdowns/.
+Apply this to ALL relative links pointing to other docs within inputs/documentation_markdowns/.
 
 SPECIAL CASE — links pointing to getting_started/overview.md:
 
@@ -317,7 +317,7 @@ Before considering the task complete, verify:
 
 [ ] getting_started/overview.md content has replaced docs/intro.md
 [ ] No docs/getting_started/ directory exists
-[ ] All other files from raw_markdowns/ are in docs/ with correct structure
+[ ] All other files from inputs/documentation_markdowns/ are in docs/ with correct structure
 [ ] docs/intro.md has front matter with sidebar_position: 1, slug: /intro
 [ ] Every other .md file has YAML front matter (sidebar_position, sidebar_label)
 [ ] Every subdirectory (except getting_started) has a _category_.json file with a link property

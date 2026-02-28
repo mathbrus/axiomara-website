@@ -64,7 +64,7 @@ const config: Config = {
         docsPluginId: 'api-docs',
         config: {
           backend: {
-            specPath: 'openapi/openapi.json',
+            specPath: 'inputs/api_reference/openapi.json',
             outputDir: 'api-docs',
             sidebarOptions: {
               groupPathsBy: 'tag',
