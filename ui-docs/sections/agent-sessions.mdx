@@ -1,0 +1,38 @@
+---
+title: "Agent sessions"
+sidebar_label: "Agent sessions"
+sidebar_position: 11
+---
+
+### Purpose
+
+Review session history for agent-assisted iterations and operate on completed session outputs.
+
+### When to use
+
+- You want to monitor current session states.
+- You want to rerun a prior session.
+- You want to accept generated code from a completed session.
+
+### Main actions
+
+- Refresh sessions list.
+- Expand non-running sessions to reveal aggregate metadata and per-run list.
+- Trigger rerun for a session.
+- Accept generated code for a session.
+
+### Inputs and validation
+
+- Running sessions cannot be expanded; a warning is shown instead.
+- Accept operation surfaces success or error feedback inline and clears automatically.
+
+### Expected results
+
+- Session table with status, run count, timestamps, and related trial link (if present).
+- Expanded metadata panel with token totals, durations, calls, and validation attempts.
+
+### Screenshot(s)
+
+This screenshot shows the sessions table in a running-state scenario with rerun and accept actions visible.
+
+![Agent sessions overview](/img/ui/agent_runs_list.png)

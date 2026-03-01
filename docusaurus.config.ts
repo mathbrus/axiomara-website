@@ -83,6 +83,15 @@ const config: Config = {
         sidebarPath: './api-docs/sidebar.ts',
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'ui-docs',
+        path: 'ui-docs',
+        routeBasePath: 'ui',
+        sidebarPath: './ui-docs/sidebars.ts',
+      },
+    ],
   ],
 
   presets: [
@@ -123,6 +132,16 @@ const config: Config = {
           to: '/api/api-reference-overview',
           position: 'left',
           label: 'API Reference',
+        },
+        {
+          to: '/ui/intro',
+          position: 'left',
+          label: 'UI Documentation',
+        },
+        {
+          href: 'https://github.com/mathbrus/deepalpharesearch.ai',
+          position: 'right',
+          label: 'GitHub',
         },
       ],
     },

@@ -329,7 +329,7 @@ Then make the following configuration changes:
    It belongs only on the `api-docs` plugin instance above so that regular
    docs pages in docs/ are not affected.
 
-3. Add an "API Reference" navbar item pointing to the separate plugin instance:
+3. Add or update an "API Reference" navbar item pointing to the separate plugin instance:
 
    items: [
      {
@@ -344,6 +344,10 @@ Then make the following configuration changes:
        label: 'API Reference',
      },
    ],
+
+   Keep existing navbar items intact (for example UI Documentation and any GitHub
+   link). Do not replace the full navbar `items` array if it already contains
+   additional entries.
 
    NOTE: The link must point to `/api/api-reference-overview` (the shared intro page),
    not `/api`, because the plugin does not generate an index page at the root.

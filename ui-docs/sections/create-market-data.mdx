@@ -1,0 +1,40 @@
+---
+title: "Create market data"
+sidebar_label: "Create market data"
+sidebar_position: 10
+---
+
+### Purpose
+
+Submit a market data creation request with exchange, pair, period, and candle interval.
+
+### When to use
+
+- You need a fresh dataset for analysis or experimentation.
+
+### Main actions
+
+- Fill:
+  - `Exchange`
+  - `Pair`
+  - `Start Time (Since)`
+  - `End Time (Until)`
+  - `Candle Interval`
+- Submit with `Create Market Data`.
+
+### Inputs and validation
+
+- All fields are required.
+- Start and end values must be valid datetimes.
+- End must be after start.
+- Start cannot be more than 10 years in the past.
+- End cannot be more than 1 year in the future.
+
+### Expected results
+
+- Success message appears, then auto-return to the market data workspace after a short delay.
+- Validation and backend errors are shown inline.
+
+### Screenshot(s)
+
+no screenshot available yet

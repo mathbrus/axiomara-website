@@ -1,0 +1,42 @@
+---
+title: "Trial details"
+sidebar_label: "Trial details"
+sidebar_position: 6
+---
+
+### Purpose
+
+Inspect one trial deeply through metrics, logs, and traceback output.
+
+### When to use
+
+- You need to validate trial performance trends.
+- You need to diagnose warnings, failures, or unexpected behavior.
+
+### Main actions
+
+- Switch between `Metrics`, `Logs`, and `Stack Trace` tabs.
+- Select specific metric series (performance and operations metrics).
+- Review terminal-style logs with visual severity highlights.
+- Inspect traceback details when available.
+
+### Inputs and validation
+
+- `Stack Trace` is disabled for successful trials.
+- Metrics view for non-success trials shows a guidance message instead of metric charts.
+
+### Expected results
+
+- Metrics tab: time-series chart for selected metric when data exists.
+- Logs tab: line-by-line log output with severity-aware styling.
+- Stack Trace tab: traceback output, no-data message, or error state depending on trial data.
+
+### Screenshot(s)
+
+This screenshot shows the metrics tab with metric selector and chart output for a successful trial.
+
+![Trial details metrics view](/img/ui/trial_metrics.png)
+
+This screenshot shows the logs tab with terminal-style output and warning highlights.
+
+![Trial details logs view](/img/ui/trial_logs.png)

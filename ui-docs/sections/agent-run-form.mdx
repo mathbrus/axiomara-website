@@ -1,0 +1,39 @@
+---
+title: "Agent run form"
+sidebar_label: "Agent run form"
+sidebar_position: 12
+---
+
+### Purpose
+
+Configure and start a new agent run for strategy generation or iterative improvement.
+
+### When to use
+
+- You want to initiate a new AI-assisted strategy session.
+- You want to add another run to an existing strategy-improvement session.
+
+### Main actions
+
+- Choose model and temperature.
+- Provide instruction inputs (investment committee and/or user instructions, depending on context).
+- Start execution with `Run Agent`.
+
+### Inputs and validation
+
+- `Model` is required.
+- `Temperature` must be numeric and in `[0, 2]`.
+- Existing session context requires user instructions.
+- Existing strategy context requires user instructions.
+- First new-strategy run requires at least one instruction field.
+
+### Expected results
+
+- Run request is submitted.
+- UI immediately returns to session monitoring while processing continues in the background.
+
+### Screenshot(s)
+
+This image shows the new-strategy run form with configuration controls and instruction fields prior to submission.
+
+![Agent run form for new strategy generation](/img/ui/agent_run_strategy_creation.png)
