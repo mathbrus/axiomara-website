@@ -134,7 +134,7 @@ const config: Config = {
           label: 'API Reference',
         },
         {
-          to: '/ui/intro',
+          to: '/ui/dashboard',
           position: 'left',
           label: 'UI Documentation',
         },

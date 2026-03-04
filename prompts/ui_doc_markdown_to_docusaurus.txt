@@ -32,15 +32,17 @@ PREREQUISITES (one-time setup — skip if already done)
    - Do not change the existing api-docs plugin instance.
    - This is a third docs section, isolated like api-docs.
 
-2. Ensure top navigation links to the UI docs landing page:
+2. Ensure top navigation links to the first generated UI page:
 
    Add/update one navbar item in docusaurus.config.ts:
 
    {
-     to: '/ui/intro',
+     to: '/ui/<first-ui-page-slug>',
      position: 'left',
      label: 'UI Documentation',
    }
+
+   In case of doubt, use `/ui/dashboard`.
 
    Keep existing navbar items (Documentation, API Reference, etc.) intact.
 
@@ -55,46 +57,63 @@ PREREQUISITES (one-time setup — skip if already done)
    export default sidebars;
 
 ================================================================================
-STEP 1 — Discover sections and split source markdown into pages
+STEP 1 — Discover UI pages and split source markdown one-file-per-page
 ================================================================================
 
-Read `inputs/ui/overview.md` and discover its heading structure dynamically.
-Do not assume fixed section names, numbering, or counts.
+Read `inputs/ui/overview.md` and discover UI pages dynamically.
+Do not assume fixed page names, numbering, or counts.
 
-Section discovery rules:
-1. Determine page-level headings:
-   - If the source contains any `##` headings, use each `##` as one page section.
-   - Otherwise, use top-level `#` headings (excluding the document title line) as page sections.
-2. Preserve source order exactly when generating pages.
-3. Preserve full body text under each discovered page section, including nested headings
-   (`###`, `####`, etc.), lists, tables, and code blocks.
-4. Remove numeric prefixes from generated page titles when helpful for readability
-   (for example `3.2 Launch experiment` -> `Launch experiment`), but keep meaning unchanged.
+UI page discovery rules (must satisfy all):
+1. Build the page set from BOTH:
+   - page-oriented content in the source markdown (especially the screen/page guide section), and
+   - referenced PNG filenames.
+2. A "UI page" means one clickable element in the UI sidemenu.
+3. Group multiple screenshots that belong to the same UI page into that single page doc:
+   - Treat numbered variants like `dashboard_0.png`, `dashboard_1.png`, `dashboard_2.png`,
+     `dashboard_3.png` as the same UI page (`dashboard`).
+   - More generally, strip trailing `_<number>` from PNG basenames when inferring the page key.
+4. Do NOT create docs pages for non-page narrative sections (for example workflows/process-only
+   sections) unless they map to a real UI page.
+5. The generated page count under `ui-docs/` MUST equal the discovered UI page count:
+   exactly 1 markdown file per UI page (no splitting one page into many files, no combined
+   multi-page docs).
+6. In case of doubt, the ordering of pages should be Dashboard, Strategy, Market data, Agent
+7. Preserve factual meaning and behavioral accuracy for each UI page section, but rewrite wording
+   and structure into natural user-facing prose.
+8. Preserve essential technical details even after rewrite:
+   - validation rules and required fields,
+   - disabled/loading/error/empty states,
+   - constraints and expected outcomes.
+9. Remove numeric prefixes from generated page titles when helpful for readability
+   (for example `2.4 Launch experiment` -> `Launch experiment`), but keep meaning unchanged.
 
 Output layout rules:
-- Always generate `ui-docs/intro.mdx` as the landing page.
-- Place discovered page sections under `ui-docs/sections/` using slugified filenames:
-  `ui-docs/sections/<slug-from-heading>.mdx`
-  (example: `## 3.6 Market data workspace` -> `ui-docs/sections/market-data-workspace.mdx`).
-- If there is content before the first discovered page section, place it in `intro.mdx`.
-- If there is no pre-section intro content, still create `intro.mdx` with a short landing
-  description plus links to generated section pages.
+- Do NOT generate `ui-docs/intro.mdx`.
+- Place discovered UI pages at the root of `ui-docs/` using one slugified filename per page:
+  `ui-docs/<ui-page-slug>.mdx`
+  (example: Dashboard page -> `ui-docs/dashboard.mdx`).
+- Filename rule for pages discovered from screenshots:
+  - derive canonical page key from PNG basename after removing trailing `_<number>` when present;
+  - then slugify for the target filename.
+- If there is content before the first discovered page section, merge a concise overview of that
+  content into the beginning of the first generated UI page (do not create a separate intro file).
 - Do not keep a monolithic copy of the source markdown under `ui-docs/`.
 
 Rerun/update rules:
 - If a target page already exists in `ui-docs/`, overwrite it with newly transformed content.
-- Recompute the expected generated section set on every run from current headings.
-- Create pages for newly discovered sections.
-- Update pages for existing sections.
-- Remove generated `ui-docs/sections/*.mdx` pages that no longer map to current source headings
+- Recompute the expected generated UI page set on every run from current source content and
+  referenced PNG names.
+- Create pages for newly discovered UI pages.
+- Update existing generated UI pages.
+- Remove generated `ui-docs/*.mdx` pages that no longer map to current UI pages
   (do not keep stale/orphan pages).
-- Always regenerate `ui-docs/intro.mdx` from latest source content.
+- Remove stale `ui-docs/intro.mdx` and stale `ui-docs/sections/*.mdx` files from previous runs.
 
 ================================================================================
 STEP 2 — Add front matter and version metadata
 ================================================================================
 
-All output files must be MDX (`.mdx`) with YAML front matter.
+All generated page output files must be MDX (`.mdx`) with YAML front matter.
 
 Use:
 
@@ -104,45 +123,30 @@ Use:
   sidebar_position: <number>
   ---
 
-For intro page, include:
-
-  ---
-  id: intro
-  title: "UI Documentation"
-  sidebar_label: "Introduction"
-  sidebar_position: 1
-  ---
-
-For generated section pages:
+For generated UI pages:
 - Use clear human-readable titles derived from discovered headings.
-- Set `sidebar_position` sequentially based on source order, starting at 2.
+- Set `sidebar_position` sequentially based on source order, starting at 1.
 - Keep `sidebar_label` concise and readable.
 
 Version line:
 - Read `inputs/version.txt` if it exists.
-- On `ui-docs/intro.mdx`, add a line directly below the top heading:
+- On the first generated page (the one with `sidebar_position: 1`), add a line directly below
+  the top heading:
 
   Version: <value from inputs/version.txt>
 
 - If `inputs/version.txt` does not exist, skip the version line without failing.
 
 ================================================================================
-STEP 3 — Configure sidebar categories for UI docs
+STEP 3 — Keep a flat sidebar (no section grouping)
 ================================================================================
 
-Create `ui-docs/sections/_category_.json` so generated section pages are grouped:
+Do not create category metadata for generated pages.
 
-  {
-    "label": "Sections",
-    "position": 2,
-    "collapsed": false
-  }
-
-Keep:
-- `intro.mdx` at root (position 1)
-- generated section docs under `ui-docs/sections/`
-
-If category metadata already exists, update in place rather than duplicating files.
+Rules:
+- Do NOT create `ui-docs/sections/_category_.json`.
+- Keep generated pages at `ui-docs/<slug>.mdx` so the left sidemenu stays flat.
+- If `ui-docs/sections/_category_.json` exists from previous runs, remove it.
 
 ================================================================================
 STEP 4 — Transform markdown links and image references
@@ -151,8 +155,7 @@ STEP 4 — Transform markdown links and image references
 1. Internal doc links:
    - Remove `.md` extensions in links for Docusaurus doc resolution.
    - Update cross-links to point to generated split-page routes in `ui-docs`.
-   - Prefer relative links between generated pages (for example `./sections/<slug>` from intro,
-     or `../sections/<slug>` from another section page when appropriate).
+   - Prefer relative links between generated pages (for example `./<slug>` from another root page).
 
 2. Source path cleanup:
    - Replace repository-internal source paths like `../../specs/...` with valid
@@ -171,15 +174,51 @@ STEP 4 — Transform markdown links and image references
    - Existence checks MUST use direct filesystem checks (`test -f`, `ls`, or equivalent),
      not glob results alone, so binary files are not missed by tooling quirks.
    - Update image links in generated docs to `/img/ui/<filename>.png`.
-   - Screenshot placement in generated pages:
-     - Do not keep a `### Screenshot(s)` (or similar) heading in output.
-     - Move screenshot image markdown to the top area of each generated section page,
-       directly below front matter and before the main body content.
-     - Keep any brief screenshot explanatory sentence if present, but place it adjacent
-       to the image near the top (not in a dedicated screenshot section at the bottom).
+  - Screenshot placement in generated pages:
+    - Do not keep a `### Screenshot(s)` (or similar) heading in output.
+    - Embed each screenshot next to the paragraph/step that explains that exact UI state
+      or action, not as a top-of-page dump.
+    - For numbered variants (for example `dashboard_0`, `dashboard_1`, ...), place each
+      image in the corresponding walkthrough step in logical reading order.
+    - Keep any explanatory sentence concise and action-specific, adjacent to the image.
+    - If one screenshot supports multiple nearby points, place it once at the most relevant
+      location (do not duplicate).
    - Do not drop screenshot links from generated docs if they were referenced in source.
    - If a referenced PNG cannot be found in `inputs/ui/`, fail the task with a clear error
      listing missing filenames instead of silently removing links.
+
+================================================================================
+STEP 4.5 — Rewrite style from spec-like to natural docs
+================================================================================
+
+Goal:
+Transform page content into practical, human documentation that reads like guidance,
+not generated specs.
+
+Rules:
+1. Preserve factual meaning and behavior, but rewrite wording and section structure freely.
+2. Prefer task flow over rigid templates. Avoid repetitive heading patterns such as:
+   - `Purpose`
+   - `When to use`
+   - `Main actions`
+   - `Inputs and validation`
+   - `Expected results`
+   unless a specific page truly needs them for clarity.
+3. Start each generated UI page with a short orientation paragraph that explains:
+   - what the page is for,
+   - when users typically use it.
+4. Organize the body around user actions and sequence:
+   - for example: "Start with ...", "Then ...", "If a run fails ..."
+5. Keep constraints and edge cases, but weave them into natural prose:
+   - required inputs and validation behavior,
+   - loading/disabled/error/empty states.
+6. Use concise, direct language in second-person voice where appropriate
+   (for example, "you can", "use this when").
+7. Keep pages skimmable:
+   - short sections,
+   - bullets only where they improve clarity,
+   - avoid long repetitive bullet dumps.
+8. Remove repetitive boilerplate and wording artifacts from generated text.
 
 ================================================================================
 STEP 5 — MD to MDX safety transforms
@@ -214,11 +253,11 @@ After transformations:
 2. Fix any broken links or MDX parsing errors.
 
 3. Verify routes render:
-   - `/ui/intro`
-   - all generated section routes under `/ui/sections/...`
+   - all generated page routes under `/ui/<slug>`
+   - no route dependency on `/ui/intro`
 
 4. Verify top navbar includes and opens:
-   - `UI Documentation` -> `/ui/intro`
+   - `UI Documentation` -> `/ui/<first-ui-page-slug>` (or `/ui/dashboard` fallback)
 
 5. Verify screenshot coverage is complete (no PNG is disregarded):
    - Parse all PNG references from the source markdown (by link basename), de-duplicated.
@@ -230,11 +269,12 @@ After transformations:
    - If any referenced PNG fails any check above, consider the task incomplete and fix it.
 
 6. Verify rerun reconciliation (update mode):
-   - Compute expected section files from current discovered page-level headings using
-     the naming convention in STEP 1.
-   - Verify every expected generated section file exists.
-   - Verify there are no extra/orphan `ui-docs/sections/*.mdx` files outside the expected set
-     (excluding `_category_.json`).
+   - Compute expected generated page files from current discovered UI pages using the naming convention
+     in STEP 1 (including PNG-name-based page keys).
+   - Verify every expected generated page file exists.
+   - Verify there are no extra/orphan generated `ui-docs/*.mdx` files outside the expected set.
+   - Verify one-to-one mapping: number of generated `ui-docs/*.mdx` files equals number
+     of discovered UI pages (exactly 1 markdown per UI page).
    - If stale files exist from previous generations, remove or rename them so the output matches
      the current source exactly.
 
@@ -246,20 +286,25 @@ Before considering the task complete, verify:
 
 [ ] docusaurus.config.ts has a separate docs plugin instance with id `ui-docs`
 [ ] `routeBasePath` for UI docs is `ui`
-[ ] Navbar includes `UI Documentation` linking to `/ui/intro`
+[ ] Navbar includes `UI Documentation` linking to `/ui/<first-ui-page-slug>` (or `/ui/dashboard` fallback)
 [ ] `ui-docs/sidebars.ts` exists and exports valid `SidebarsConfig`
-[ ] Source markdown content is split into separate pages (not monolithic)
-[ ] Page split is discovered from headings (not hardcoded to specific section names/counts)
-[ ] `ui-docs/intro.mdx` exists and is first in sidebar order
-[ ] Generated section pages exist under `ui-docs/sections/` with slugified names
+[ ] Source markdown content is split into separate UI pages (not monolithic)
+[ ] UI page split is discovered from source content plus referenced PNG names (not hardcoded)
+[ ] Exactly 1 generated markdown exists per discovered UI page
+[ ] No `ui-docs/intro.mdx` is generated
+[ ] Generated pages exist at `ui-docs/<slug>.mdx` (flat structure, no sections folder required)
+[ ] No `ui-docs/sections/_category_.json` grouping is generated
 [ ] MDX front matter is present on every page
-[ ] Version line is included on intro when `inputs/version.txt` exists
+[ ] Version line is included on the first generated page when `inputs/version.txt` exists
 [ ] Internal links are updated and `.md` suffixes removed
 [ ] Broken repository-local links are removed or corrected
 [ ] Every PNG referenced in source markdown is discovered from `inputs/ui/`
 [ ] Every referenced PNG is copied to `static/img/ui/`
 [ ] Every referenced PNG is linked in generated docs as `/img/ui/<filename>.png`
 [ ] No referenced PNG is silently dropped/disregarded in generated docs
+[ ] Screenshots are embedded at the relevant explanatory step (not dumped at top)
+[ ] Generated page prose reads like a user workflow, not a repeated spec template
+[ ] Validation/error/empty/loading states are preserved in natural prose
 [ ] Existing generated pages are overwritten (not duplicated) on rerun
-[ ] Generated section pages exactly match current discovered headings (no stale/orphan pages)
-[ ] `intro.mdx` and all generated section pages are regenerated from latest source content on rerun
+[ ] Generated pages exactly match current discovered UI pages (no stale/orphan pages)
+[ ] Stale `ui-docs/intro.mdx` and stale `ui-docs/sections/*.mdx` files are removed on rerun

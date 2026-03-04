@@ -1,0 +1,43 @@
+---
+title: "Dashboard"
+sidebar_label: "Dashboard"
+sidebar_position: 1
+---
+
+The Dashboard is the fastest way to answer two questions:
+
+1. What is currently running?
+2. Which trial should I look at next?
+
+You can start broad (experiment-level status), then drill into a specific trial to inspect performance, logs, or failures.
+
+## Start with experiment-level status
+
+Use the status filter to narrow the list (`All`, `Successful`, `Running`, `Failed`), then expand an experiment row to open its trial table. Each trial gives you a quick read on progress and outcome (status, iteration count, ROI, and net profit).
+
+If you need to run another pass, use the rerun action directly from the experiment row.
+
+![Expanded experiment with nested trials](/img/ui/dashboard_0.png)
+
+## Drill down into trial details
+
+When a trial looks interesting (or suspicious), open it and switch between `Metrics`, `Logs`, and `Stack Trace`.
+
+In `Metrics`, you can choose a metric series from the selector and review its behavior over time. This is usually the best first stop for successful runs.
+
+![Trial metrics with metric selector](/img/ui/dashboard_1.png)
+
+Next, check `Logs` to understand what happened during execution. Warning and error lines are easier to spot, which helps you quickly correlate odd metric behavior with runtime events.
+
+![Trial logs with warnings highlighted](/img/ui/dashboard_2.png)
+
+For failed trials, use `Stack Trace` to inspect traceback output and identify where execution broke.
+
+![Trial stack trace for failed run](/img/ui/dashboard_3.png)
+
+## Notes and edge cases
+
+- Some values may temporarily show as `Loading...` or `N/A` while data is still being fetched.
+- Metrics are only available for successful trials.
+- `Stack Trace` is typically not relevant for successful runs.
+- Empty states are explicit, so you can distinguish "nothing to show" from "still loading."

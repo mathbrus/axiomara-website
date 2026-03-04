@@ -1,0 +1,34 @@
+---
+title: "Strategy"
+sidebar_label: "Strategy"
+sidebar_position: 2
+---
+
+Use the Strategy page when you want to pick a baseline strategy and quickly move into experiment execution.
+
+## Choose the strategy you want to test
+
+The table gives you a practical overview of available strategies (name, version, description, created time). Once you find the right candidate, use `Create Experiment` on that row.
+
+This is the usual entry point for backtesting a specific strategy version without manually assembling everything from scratch.
+
+![Strategy list with create experiment actions](/img/ui/strategy_0.png)
+
+## Configure and launch an experiment
+
+After selecting a strategy, the launch screen opens with an editable JSON configuration. You can tune parameters directly, then submit from the same page.
+
+`Add trial` is useful when you want another variation quickly: it increments `number_of_trials` and copies the last value in each strategy parameter array as a starting point.
+
+![Experiment launch with editable JSON config](/img/ui/strategy_1.png)
+
+## Validation behavior
+
+- JSON must be valid and parse as an object before launch is enabled.
+- If JSON is invalid, the UI blocks submission and shows a clear error message.
+- While submitting, the launch action changes to `Launching...`.
+
+## Expected outcome
+
+On success, a new experiment is created and returned to the monitoring flow.  
+On failure, the page keeps your edited JSON so you can fix and retry without losing work.
