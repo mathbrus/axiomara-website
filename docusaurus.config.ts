@@ -18,10 +18,10 @@ const config: Config = {
   },
   themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-openapi-docs'],
 
-  url: 'https://axiomara.com',
-  baseUrl: '/',
+  url: 'https://mathbrus.github.io',
+  baseUrl: '/axiomara-website/',
 
-  organizationName: '<org>',
+  organizationName: 'mathbrus',
   projectName: 'axiomara-website',
 
   onBrokenLinks: 'throw',
