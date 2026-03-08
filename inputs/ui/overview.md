@@ -1,6 +1,6 @@
 # 1. Introduction
 
-DeepAlphaResearch.ai provides a user interface for users who need to review strategy candidates, launch experiments, monitor trial outcomes, analyze market datasets, and run LLM-assisted strategy generation sessions.
+Axiomara provides a user interface for users who need to review strategy candidates, launch experiments, monitor trial outcomes, analyze market datasets, and run LLM-assisted strategy generation sessions.
 
 ## 2. Screen-by-screen guide
 

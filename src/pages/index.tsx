@@ -16,7 +16,7 @@ function HomepageHeader() {
         <div className={styles.heroContent}>
           <img
             src="/img/logo.svg"
-            alt="DeepAlphaResearch Logo"
+            alt="Axiomara Logo"
             className={styles.heroLogo}
           />
           <Heading as="h1" className={styles.heroTitle}>
@@ -38,10 +38,10 @@ function HomepageHeader() {
             <div className={styles.terminalBody}>
               <div className={styles.terminalLine}>
                 <span className={styles.terminalPrompt}>$</span>
-                <span className={styles.terminalCommand}> deepalpharesearch --init</span>
+                <span className={styles.terminalCommand}> axiomara --init</span>
               </div>
               <div className={styles.terminalOutput}>
-                <span className={styles.terminalSuccess}>✓</span> Initializing DeepAlphaResearch...
+                <span className={styles.terminalSuccess}>✓</span> Initializing Axiomara...
               </div>
               <div className={styles.terminalOutput}>
                 <span className={styles.terminalSuccess}>✓</span> Loading documentation...

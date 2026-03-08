@@ -5,7 +5,7 @@ sidebar_label: "Architecture"
 
 # Architecture Overview
 
-**DeepAlphaResearch.ai** is a containerised platform for designing, backtesting, and analysing quantitative trading strategies. It combines a Python-based trading engine, a FastAPI backend, a Next.js frontend, and an LLM-powered agent service into a single Docker Compose stack. This document provides a high-level view of the system architecture: the major services, how they communicate, the storage layers that persist data and artefacts, the Docker Compose topology that ties everything together, and the testing infrastructure that keeps the codebase reliable. It is aimed at technical readers who need to navigate, extend, or operate the platform.
+**Axiomara** is a containerised platform for designing, backtesting, and analysing quantitative trading strategies. It combines a Python-based trading engine, a FastAPI backend, a Next.js frontend, and an LLM-powered agent service into a single Docker Compose stack. This document provides a high-level view of the system architecture: the major services, how they communicate, the storage layers that persist data and artefacts, the Docker Compose topology that ties everything together, and the testing infrastructure that keeps the codebase reliable. It is aimed at technical readers who need to navigate, extend, or operate the platform.
 
 ---
 
@@ -174,7 +174,7 @@ flowchart TB
 | `api` | `api/Dockerfile` | FastAPI app served by Uvicorn on port 8000. Copies `shared/` into the image for database, storage, and logging utilities. |
 | `agent-service` | `agent/Dockerfile` | LangGraph agent on port 8001. Receives HTTP calls from the API. Needs an `OPENAI_API_KEY` at runtime. |
 | `ui` | `ui/Dockerfile` | Multi-stage Next.js build (deps → builder → runner). Runs as a non-root user on port 3000. Configured via `NEXT_PUBLIC_API_URL`. |
-| `trading_engine` | `deepalpharesearch/Dockerfile` | Engine started via `entrypoint.sh`, which runs startup initialization then the main Redis listener loop. Copies `shared/` into the image. |
+| `trading_engine` | `axiomara/Dockerfile` | Engine started via `entrypoint.sh`, which runs startup initialization then the main Redis listener loop. Copies `shared/` into the image. |
 
 ### 3.3 Infrastructure Services
 

@@ -1,6 +1,6 @@
 # Strategy Framework Overview
 
-The DeepAlphaResearch strategy framework provides a structured, signal-based approach to building quantitative trading strategies. Rather than managing orders directly, strategy authors implement a single `generate_signals()` method, and the framework takes care of order conversion, risk validation, and submission. Strategies run in repeating cycles -- each cycle ingests fresh market data, enforces risk guardrails, executes user-defined logic, and submits validated orders -- giving developers a clear, hook-driven lifecycle they can extend at every stage. This document is a comprehensive reference: it covers the execution flow, the signal architecture, the strategy creation process, the full API surface, and the mechanisms for loading and discovering strategies.
+The Axiomara strategy framework provides a structured, signal-based approach to building quantitative trading strategies. Rather than managing orders directly, strategy authors implement a single `generate_signals()` method, and the framework takes care of order conversion, risk validation, and submission. Strategies run in repeating cycles -- each cycle ingests fresh market data, enforces risk guardrails, executes user-defined logic, and submits validated orders -- giving developers a clear, hook-driven lifecycle they can extend at every stage. This document is a comprehensive reference: it covers the execution flow, the signal architecture, the strategy creation process, the full API surface, and the mechanisms for loading and discovering strategies.
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ The DeepAlphaResearch strategy framework provides a structured, signal-based app
 
 ### 1.1 Cycle Overview
 
-Strategies in the DeepAlphaResearch framework operate in **cycles**. Each cycle represents a complete iteration through the strategy logic, from data ingestion to order submission. The `run_cycle()` method on `BaseStrategy` orchestrates the entire sequence.
+Strategies in the Axiomara framework operate in **cycles**. Each cycle represents a complete iteration through the strategy logic, from data ingestion to order submission. The `run_cycle()` method on `BaseStrategy` orchestrates the entire sequence.
 
 ```mermaid
 graph LR
@@ -266,11 +266,11 @@ flowchart LR
 
 ### 2.2 Signal Class Structure
 
-A `Signal` encapsulates all information needed to create an order. Defined in `deepalpharesearch/trading/signal.py`:
+A `Signal` encapsulates all information needed to create an order. Defined in `axiomara/trading/signal.py`:
 
 ```python
-from deepalpharesearch.trading.signal import Signal
-from deepalpharesearch.trading.enums import OrderSide, OrderType, OrderTIF
+from axiomara.trading.signal import Signal
+from axiomara.trading.enums import OrderSide, OrderType, OrderTIF
 
 signal = Signal(
     pair="BTC/USDT",                    # Trading pair
@@ -451,9 +451,9 @@ classDiagram
 from typing import ClassVar, Type
 from pydantic import Field, field_validator
 
-from deepalpharesearch.strategy.strategy import BaseStrategy, BaseStrategyParameters
-from deepalpharesearch.trading.enums import OrderSide, CandleFocus
-from deepalpharesearch.trading.signal import Signal
+from axiomara.strategy.strategy import BaseStrategy, BaseStrategyParameters
+from axiomara.trading.enums import OrderSide, CandleFocus
+from axiomara.trading.signal import Signal
 from shared.logging.logs import LogKey
 
 
@@ -702,7 +702,7 @@ market_prices = self.data.get_current_market_prices(
 
 ### 3.6 CandleFocus Enum
 
-Defined in `deepalpharesearch/trading/enums.py`, specifies which element of an OHLCV candle to access:
+Defined in `axiomara/trading/enums.py`, specifies which element of an OHLCV candle to access:
 
 | Member | Value | Description |
 |--------|-------|-------------|
@@ -971,7 +971,7 @@ Initializes the strategy. `**kwargs` are forwarded to the `parameters_model` Pyd
 Strategies can be **baked into** the system by placing them in the `strategy/example_implementations` directory. Each strategy lives in its own subdirectory with a single `implementation.py` file:
 
 ```
-deepalpharesearch/strategy/example_implementations/
+axiomara/strategy/example_implementations/
 ├── mean_reversion_strategy/
 │   └── implementation.py
 ├── momentum_strategy/

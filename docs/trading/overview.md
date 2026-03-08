@@ -5,7 +5,7 @@ sidebar_label: "Trading Module"
 
 # Trading Module Overview
 
-The trading module is one of the three core modules that make up the DeepAlphaResearch trading engine, alongside the **strategy module** and the **components module**. While the strategy module defines *what* to trade and the components module provides shared infrastructure, the trading module handles *how* trading is executed: it manages orders and transfers, tracks portfolio state, enforces risk guardrails, and rebalances assets across exchanges. Users do not interact with this module directly — it is consumed by the trading engine and by strategies through well-defined interfaces.
+The trading module is one of the three core modules that make up the Axiomara trading engine, alongside the **strategy module** and the **components module**. While the strategy module defines *what* to trade and the components module provides shared infrastructure, the trading module handles *how* trading is executed: it manages orders and transfers, tracks portfolio state, enforces risk guardrails, and rebalances assets across exchanges. Users do not interact with this module directly — it is consumed by the trading engine and by strategies through well-defined interfaces.
 
 This document covers the internal structure of the trading module, explains how its components relate to one another, and details the lifecycle of trading operations from signal creation through order execution.
 
@@ -104,7 +104,7 @@ flowchart TB
 ### 1.2 File Structure
 
 ```
-deepalpharesearch/trading/
+axiomara/trading/
 ├── signal.py              # Signal class (strategy intent)
 ├── trading_manager.py     # TradingManager (central orchestrator)
 ├── trading_operation.py   # TradingOperation (abstract base)
@@ -260,7 +260,7 @@ Transfers follow the same lifecycle as orders. The `mark_as_completed()` method 
 
 ### 2.5 Trading Enums
 
-All enumerations are defined in `deepalpharesearch/trading/enums.py`:
+All enumerations are defined in `axiomara/trading/enums.py`:
 
 | Enum | Values | Purpose |
 |------|--------|---------|
@@ -347,7 +347,7 @@ sequenceDiagram
 
 ### 4.1 Signal Structure
 
-A `Signal` is a lightweight object that captures a strategy's trading intent. Strategies produce signals; the framework converts them into orders. Signals are defined in `deepalpharesearch/trading/signal.py`.
+A `Signal` is a lightweight object that captures a strategy's trading intent. Strategies produce signals; the framework converts them into orders. Signals are defined in `axiomara/trading/signal.py`.
 
 | Attribute | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
@@ -380,7 +380,7 @@ The conversion is mechanical — no transformation, filtering, or validation hap
 
 ### 5.1 Portfolio
 
-The `Portfolio` class maintains the complete financial state of a strategy: base-currency balances per exchange and open/closed positions for every traded asset. It is defined in `deepalpharesearch/trading/portfolio.py`.
+The `Portfolio` class maintains the complete financial state of a strategy: base-currency balances per exchange and open/closed positions for every traded asset. It is defined in `axiomara/trading/portfolio.py`.
 
 ```mermaid
 flowchart TB
@@ -419,7 +419,7 @@ flowchart TB
 
 ### 5.2 Position
 
-A `Position` tracks the quantity, average entry price, and profit/loss for a single asset on a single exchange. Defined in `deepalpharesearch/trading/position.py`.
+A `Position` tracks the quantity, average entry price, and profit/loss for a single asset on a single exchange. Defined in `axiomara/trading/position.py`.
 
 ```mermaid
 flowchart LR
@@ -496,7 +496,7 @@ sequenceDiagram
 
 ### 6.1 Responsibilities
 
-The `TradingManager` is the central orchestrator of the trading module. It owns the order book and transfer book, manages submission and execution, performs funding checks, and updates the portfolio after fills. Defined in `deepalpharesearch/trading/trading_manager.py`.
+The `TradingManager` is the central orchestrator of the trading module. It owns the order book and transfer book, manages submission and execution, performs funding checks, and updates the portfolio after fills. Defined in `axiomara/trading/trading_manager.py`.
 
 ```mermaid
 flowchart TB
@@ -579,7 +579,7 @@ The `_has_sufficient_funding()` method validates that the portfolio has enough b
 
 ### 7.1 Guardrail Pipeline
 
-The `RiskManager` enforces pre-trade and post-trade risk limits. It runs **before** the strategy's signal generation logic in each cycle, ensuring that risk boundaries are respected proactively. Defined in `deepalpharesearch/trading/risk_manager.py`.
+The `RiskManager` enforces pre-trade and post-trade risk limits. It runs **before** the strategy's signal generation logic in each cycle, ensuring that risk boundaries are respected proactively. Defined in `axiomara/trading/risk_manager.py`.
 
 ```mermaid
 flowchart LR
@@ -667,7 +667,7 @@ When `max_open_orders` is set, the `validate_orders()` method trims candidate or
 
 ### 8.1 Rebalancing Strategies
 
-The `Rebalancer` generates inter-exchange transfers to maintain a desired distribution of base-currency assets across exchanges. It is defined in `deepalpharesearch/trading/rebalancer.py`.
+The `Rebalancer` generates inter-exchange transfers to maintain a desired distribution of base-currency assets across exchanges. It is defined in `axiomara/trading/rebalancer.py`.
 
 | Strategy | Enum Value | Behavior |
 |----------|------------|----------|

@@ -1,4 +1,4 @@
-This reference covers the DeepAlphaResearch.ai APIs for developers building
+This reference covers the Axiomara APIs for developers building
 automated research workflows, integrations, and internal tools.
 
 ## Choose an API family

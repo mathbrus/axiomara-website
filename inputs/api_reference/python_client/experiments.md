@@ -51,7 +51,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.experiments.list()
@@ -92,8 +92,8 @@ Create a new experiment.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
-from deepalpharesearch_client.models import ExperimentConfig
+from axiomara_client import Client
+from axiomara_client.models import ExperimentConfig
 
 client = Client(base_url="http://localhost:8000")
 response = client.experiments.create(config=ExperimentConfig(...))
@@ -134,7 +134,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.experiments.get_benchmark_metrics(experiment_id="EXPERIMENT_ID")

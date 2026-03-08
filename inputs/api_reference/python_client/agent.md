@@ -48,8 +48,8 @@ Run a single iteration of the agent.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
-from deepalpharesearch_client.models import AgentRunRequest
+from axiomara_client import Client
+from axiomara_client.models import AgentRunRequest
 
 client = Client(base_url="http://localhost:8000")
 response = client.agent.run(request=AgentRunRequest(...), timeout=300)
@@ -90,8 +90,8 @@ Accept the agent's result and save it as a strategy.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
-from deepalpharesearch_client.models import AgentAcceptRequest
+from axiomara_client import Client
+from axiomara_client.models import AgentAcceptRequest
 
 client = Client(base_url="http://localhost:8000")
 response = client.agent.accept(request=AgentAcceptRequest(...))
@@ -132,7 +132,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.agent.get_logs(session_id="SESSION_ID")
@@ -176,7 +176,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.agent.get_metadata(session_id="SESSION_ID")
@@ -224,7 +224,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.agent.list_sessions()
@@ -265,7 +265,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.agent.get_session(session_id="SESSION_ID")

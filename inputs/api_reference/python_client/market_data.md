@@ -52,7 +52,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.market_data.list()
@@ -93,7 +93,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.market_data.get(market_data_object_id="MARKET_DATA_OBJECT_ID")
@@ -134,8 +134,8 @@ Create a new market data object.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
-from deepalpharesearch_client.models import CreateMarketDataObjectRequest
+from axiomara_client import Client
+from axiomara_client.models import CreateMarketDataObjectRequest
 
 client = Client(base_url="http://localhost:8000")
 response = client.market_data.create(request=CreateMarketDataObjectRequest(...))

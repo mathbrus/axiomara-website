@@ -5,7 +5,7 @@ sidebar_label: "Trading Engine"
 
 # Trading Engine Overview
 
-The trading engine is the main service in the DeepAlphaResearch Docker Compose stack. It is a Python application that receives commands over Redis pub/sub, executes them, and persists results to PostgreSQL and MinIO. It does not expose any HTTP API — it is driven entirely by messages published by the backend. The engine is built around three core modules: **components**, **strategy**, and **trading**. The strategy module defines the interface and lifecycle for trading strategies and is documented in the [Strategy Overview](../strategy/overview). The trading module provides portfolio management, order execution, risk enforcement, and rebalancing and is documented in the [Trading Overview](../trading/overview). This document focuses on the **components** module, which contains the top-level use cases that orchestrate the engine's work.
+The trading engine is the main service in the Axiomara Docker Compose stack. It is a Python application that receives commands over Redis pub/sub, executes them, and persists results to PostgreSQL and MinIO. It does not expose any HTTP API — it is driven entirely by messages published by the backend. The engine is built around three core modules: **components**, **strategy**, and **trading**. The strategy module defines the interface and lifecycle for trading strategies and is documented in the [Strategy Overview](../strategy/overview). The trading module provides portfolio management, order execution, risk enforcement, and rebalancing and is documented in the [Trading Overview](../trading/overview). This document focuses on the **components** module, which contains the top-level use cases that orchestrate the engine's work.
 
 ---
 
@@ -114,7 +114,7 @@ Three commands are registered:
 
 ### 2.1 Overview
 
-The components module (`deepalpharesearch/components/`) contains four classes that represent the engine's top-level use cases. Each class encapsulates a complete workflow — from input validation through execution to persistence — and is invoked by the command dispatch layer.
+The components module (`axiomara/components/`) contains four classes that represent the engine's top-level use cases. Each class encapsulates a complete workflow — from input validation through execution to persistence — and is invoked by the command dispatch layer.
 
 ```mermaid
 flowchart TB

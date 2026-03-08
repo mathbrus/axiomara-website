@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'DeepAlphaResearch',
+  title: 'Axiomara',
   tagline: 'Open-source AI-based investment strategies research platform',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.svg',
 
   future: {
     v4: true,
@@ -18,11 +18,11 @@ const config: Config = {
   },
   themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-openapi-docs'],
 
-  url: 'https://deepalpharesearch.com',
+  url: 'https://axiomara.com',
   baseUrl: '/',
 
-  organizationName: 'deepalpharesearch',
-  projectName: 'deepalpharesearch-website',
+  organizationName: '<org>',
+  projectName: 'axiomara-website',
 
   onBrokenLinks: 'throw',
 
@@ -115,10 +115,10 @@ const config: Config = {
       disableSwitch: true,
     },
     navbar: {
-      title: 'DeepAlphaResearch',
+      title: 'Axiomara',
       style: 'dark',
       logo: {
-        alt: 'DeepAlphaResearch Logo',
+        alt: 'Axiomara Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -139,7 +139,7 @@ const config: Config = {
           label: 'UI Documentation',
         },
         {
-          href: 'https://github.com/mathbrus/deepalpharesearch.ai',
+          href: 'https://github.com/<org>/axiomara',
           position: 'right',
           label: 'GitHub',
         },
@@ -147,7 +147,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} DeepAlphaResearch, Inc.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Axiomara, Inc.`,
     },
     prism: {
       theme: prismThemes.vsLight,

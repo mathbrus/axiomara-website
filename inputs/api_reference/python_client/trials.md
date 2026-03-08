@@ -46,7 +46,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.trials.list(experiment_id="EXPERIMENT_ID")
@@ -87,7 +87,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.trials.get_performance_metrics(trial_id="TRIAL_ID")
@@ -128,7 +128,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.trials.get_operations_metrics(trial_id="TRIAL_ID")
@@ -169,7 +169,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.trials.get_logs(trial_id="TRIAL_ID")
@@ -214,7 +214,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.trials.get_traceback(trial_id="TRIAL_ID")

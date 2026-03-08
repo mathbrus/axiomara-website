@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 # Getting Started
 
-This guide walks you through the DeepAlphaResearch.ai platform from first launch to inspecting backtest results. By the end, you will know how to manage strategies, download market data, run experiments, and analyse trial outcomes — using either the **Python client library** or the **REST API** directly.
+This guide walks you through the Axiomara platform from first launch to inspecting backtest results. By the end, you will know how to manage strategies, download market data, run experiments, and analyse trial outcomes — using either the **Python client library** or the **REST API** directly.
 
 Every example assumes the platform is running locally. Python snippets are written for a Jupyter notebook environment; REST API examples use `curl` from a terminal.
 
@@ -71,8 +71,8 @@ For deeper coverage of individual topics, see the dedicated documentation:
 ### 1.2 Clone and Configure
 
 ```bash
-git clone https://github.com/mathbrus/DeepAlphaResearch.ai.git
-cd DeepAlphaResearch.ai
+git clone https://github.com/<org>/axiomara.git
+cd axiomara
 ```
 
 Create a `.env` file at the repository root:
@@ -81,7 +81,7 @@ Create a `.env` file at the repository root:
 # PostgreSQL
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-POSTGRES_DB=deepalpharesearch
+POSTGRES_DB=axiomara
 
 # MinIO
 MINIO_ROOT_USER=minioadmin
@@ -151,7 +151,7 @@ The Python client library lives in `client/python/`. Install it with pip:
 pip install ./client/python
 ```
 
-This installs the `deepalpharesearch_client` package along with its dependencies (`requests`, `pydantic`).
+This installs the `axiomara_client` package along with its dependencies (`requests`, `pydantic`).
 
 ### 2.2 Create a Client Instance
 
@@ -159,7 +159,7 @@ This installs the `deepalpharesearch_client` package along with its dependencies
   <TabItem value="python" label="Python">
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 ```
@@ -263,14 +263,14 @@ flowchart LR
   <TabItem value="python" label="Python">
 
 ```python
-from deepalpharesearch_client.models import StrategyConfig
+from axiomara_client.models import StrategyConfig
 
 raw_code = """
 from typing import ClassVar, Type
 from pydantic import Field, field_validator
-from deepalpharesearch.strategy.strategy import BaseStrategy, BaseStrategyParameters
-from deepalpharesearch.trading.enums import OrderSide, CandleFocus
-from deepalpharesearch.trading.signal import Signal
+from axiomara.strategy.strategy import BaseStrategy, BaseStrategyParameters
+from axiomara.trading.enums import OrderSide, CandleFocus
+from axiomara.trading.signal import Signal
 
 
 class MyStrategyParameters(BaseStrategyParameters):
@@ -315,7 +315,7 @@ print(result)
 curl -s -X POST http://localhost:8000/api/strategies/ \
   -H "Content-Type: application/json" \
   -d '{
-    "raw_code": "from typing import ClassVar, Type\nfrom pydantic import Field, field_validator\nfrom deepalpharesearch.strategy.strategy import BaseStrategy, BaseStrategyParameters\nfrom deepalpharesearch.trading.enums import OrderSide, CandleFocus\nfrom deepalpharesearch.trading.signal import Signal\n\n\nclass MyStrategyParameters(BaseStrategyParameters):\n    lookback_periods: int = Field(default=20, description=\"Moving average lookback\")\n\n    @field_validator(\"lookback_periods\")\n    def check_lookback(cls, v):\n        if v < 2:\n            raise ValueError(\"lookback_periods must be at least 2\")\n        return v\n\n\nclass MyStrategy(BaseStrategy):\n    parameters_model: ClassVar[Type[MyStrategyParameters]] = MyStrategyParameters\n    version: str = \"1.0.0\"\n    description: str = \"A simple custom strategy\"\n\n    def generate_signals(self) -> None:\n        for exchange, pair in self.data.get_exchange_pair_combinations():\n            _, price = self.data.get_value_from_candle(\n                exchange, pair, CandleFocus.CLOSE.value, index=-1\n            )\n            signal = Signal(\n                pair=pair, side=OrderSide.BUY, qty=0.01,\n                exchange=exchange, price=price,\n                order_creation_ts=self.data.last_timestamp,\n            )\n            self.signals.append(signal)\n"
+    "raw_code": "from typing import ClassVar, Type\nfrom pydantic import Field, field_validator\nfrom axiomara.strategy.strategy import BaseStrategy, BaseStrategyParameters\nfrom axiomara.trading.enums import OrderSide, CandleFocus\nfrom axiomara.trading.signal import Signal\n\n\nclass MyStrategyParameters(BaseStrategyParameters):\n    lookback_periods: int = Field(default=20, description=\"Moving average lookback\")\n\n    @field_validator(\"lookback_periods\")\n    def check_lookback(cls, v):\n        if v < 2:\n            raise ValueError(\"lookback_periods must be at least 2\")\n        return v\n\n\nclass MyStrategy(BaseStrategy):\n    parameters_model: ClassVar[Type[MyStrategyParameters]] = MyStrategyParameters\n    version: str = \"1.0.0\"\n    description: str = \"A simple custom strategy\"\n\n    def generate_signals(self) -> None:\n        for exchange, pair in self.data.get_exchange_pair_combinations():\n            _, price = self.data.get_value_from_candle(\n                exchange, pair, CandleFocus.CLOSE.value, index=-1\n            )\n            signal = Signal(\n                pair=pair, side=OrderSide.BUY, qty=0.01,\n                exchange=exchange, price=price,\n                order_creation_ts=self.data.last_timestamp,\n            )\n            self.signals.append(signal)\n"
   }' | python3 -m json.tool
 ```
 
@@ -345,7 +345,7 @@ flowchart LR
   <TabItem value="python" label="Python">
 
 ```python
-from deepalpharesearch_client.models import CreateMarketDataObjectRequest
+from axiomara_client.models import CreateMarketDataObjectRequest
 
 request = CreateMarketDataObjectRequest(
     exchange="binance",
@@ -474,7 +474,7 @@ An experiment configuration specifies which strategy to use, the parameter value
   <TabItem value="python" label="Python">
 
 ```python
-from deepalpharesearch_client import ExperimentConfig
+from axiomara_client import ExperimentConfig
 
 config = ExperimentConfig(
     number_of_trials=2,
@@ -773,7 +773,7 @@ The agent supports two scenarios:
   <TabItem value="python" label="Python">
 
 ```python
-from deepalpharesearch_client.models import AgentRunRequest, LLMRunConfig
+from axiomara_client.models import AgentRunRequest, LLMRunConfig
 
 request = AgentRunRequest(
     scenario="new_strategy",
@@ -853,7 +853,7 @@ When you are satisfied with the generated code, accept it to register it as a st
   <TabItem value="python" label="Python">
 
 ```python
-from deepalpharesearch_client.models import AgentAcceptRequest
+from axiomara_client.models import AgentAcceptRequest
 
 accept_result = client.agent.accept(AgentAcceptRequest(session_id=result.session_id))
 print(accept_result.status)

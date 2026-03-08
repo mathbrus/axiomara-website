@@ -51,7 +51,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.strategies.list()
@@ -93,7 +93,7 @@ None.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
+from axiomara_client import Client
 
 client = Client(base_url="http://localhost:8000")
 response = client.strategies.get(strategy_name="example_strategy_name", strategy_version="example_strategy_version")
@@ -134,8 +134,8 @@ Create a new strategy.
 ### Minimal usage example
 
 ```python
-from deepalpharesearch_client import Client
-from deepalpharesearch_client.models import StrategyConfig
+from axiomara_client import Client
+from axiomara_client.models import StrategyConfig
 
 client = Client(base_url="http://localhost:8000")
 response = client.strategies.create(config=StrategyConfig(...))

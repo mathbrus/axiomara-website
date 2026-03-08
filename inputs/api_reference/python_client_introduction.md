@@ -1,6 +1,6 @@
-# DeepAlpha Research Python Client
+# Axiomara Python Client
 
-Python client library for interacting with the DeepAlphaResearch API. This package provides a clean, Pythonic interface for all API endpoints with full type hints and Pydantic model validation.
+Python client library for interacting with the Axiomara API. This package provides a clean, Pythonic interface for all API endpoints with full type hints and Pydantic model validation.
 
 ## Mental Model
 
@@ -43,7 +43,7 @@ python setup.py sdist bdist_wheel
 Then install the built wheel:
 
 ```bash
-pip install dist/deepalpharesearch_client-*.whl
+pip install dist/axiomara_client-*.whl
 ```
 
 ### Option 3: Install from Jupyter notebook
@@ -60,8 +60,8 @@ import sys
 ## Quick Start
 
 ```python
-from deepalpharesearch_client import Client
-from deepalpharesearch_client.models import (
+from axiomara_client import Client
+from axiomara_client.models import (
     ExperimentConfig,
     ExperimentsModel,
     BenchmarkPerformanceResponseModel,
@@ -142,7 +142,7 @@ Some `create()` methods return an acknowledgement `dict` from the API.
 All Pydantic models are included in the package (self-contained). You can import commonly used models directly:
 
 ```python
-from deepalpharesearch_client import (
+from axiomara_client import (
     Client,
     ExperimentConfig,
     ExperimentsModel,
@@ -154,7 +154,7 @@ from deepalpharesearch_client import (
 Or import specific models from the models module:
 
 ```python
-from deepalpharesearch_client.models import (
+from axiomara_client.models import (
     # Shared models
     ExperimentsModel,
     StrategiesModel,

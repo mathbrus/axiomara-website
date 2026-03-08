@@ -28,7 +28,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Open Source',
     Icon: Github,
     description: 'All code available on GitHub.',
-    command: 'git clone https://github.com/mathbrus/deepalpharesearch.ai.git',
+    command: 'git clone https://github.com/<org>/axiomara.git',
   },
 ];
 

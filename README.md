@@ -1,4 +1,4 @@
-# DeepAlphaResearch Website
+# Axiomara Website
 
 This website is built using Docusaurus, a modern static website generator.
 
