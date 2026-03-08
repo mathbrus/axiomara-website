@@ -57,6 +57,11 @@
   line-height: 1.4;
 }
 
+.featureTitlePrompt {
+  color: var(--color-info);
+  font-weight: 700;
+}
+
 .featureDescription {
   color: var(--color-text);
   line-height: 1.65;
@@ -79,15 +84,15 @@
 }
 
 .terminalPrompt {
-  color: rgba(18, 58, 111, 0.9);
+  color: rgba(118, 196, 255, 0.95);
   margin-right: 0.5rem;
   font-weight: 600;
   font-size: 0.8125rem;
-  filter: brightness(2.2);
+  white-space: nowrap;
 }
 
 .terminalCommand {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.8125rem;
   font-weight: 400;
   background: none;
