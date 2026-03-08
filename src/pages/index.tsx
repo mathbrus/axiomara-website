@@ -1,6 +1,7 @@
 import {useEffect, useState, type ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
@@ -32,6 +33,7 @@ const ASCII_BOTTOM = [
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   const [frameIdx, setFrameIdx] = useState(0);
+  const logoUrl = useBaseUrl('/img/logo.svg');
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -49,7 +51,7 @@ function HomepageHeader() {
         <div className={styles.heroGrid}>
           <div className={styles.heroContent}>
             <img
-              src="/img/logo.svg"
+              src={logoUrl}
               alt="Axiomara Logo"
               className={styles.heroLogo}
             />

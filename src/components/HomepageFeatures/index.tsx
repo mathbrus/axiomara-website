@@ -16,7 +16,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Multi-Interface',
     Icon: Terminal,
     description: 'Usable through UI, REST API or Python client.',
-    command: 'curl http://localhost:8000/strategies --silent',
+    command: 'curl http://localhost:8000/experiments',
   },
   {
     title: 'Run Locally',
