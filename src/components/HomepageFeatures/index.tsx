@@ -16,7 +16,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Multi-Interface',
     Icon: Terminal,
     description: 'Usable through UI, REST API or Python client.',
-    command: 'curl ...',
+    command: 'curl http://localhost:8000/strategies --silent',
   },
   {
     title: 'Run Locally',
@@ -28,7 +28,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Open Source',
     Icon: Github,
     description: 'All code available on GitHub.',
-    command: 'git clone https://github.com/mathbrus/axiomara.git',
+    command: 'git clone github.com/mathbrus/axiomara.git',
   },
 ];
 
@@ -39,7 +39,9 @@ function Feature({title, Icon, description, command}: FeatureItem) {
         <Icon size={36} strokeWidth={1.5} className={styles.featureIconSvg} />
       </div>
       <div className={styles.featureContent}>
-        <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
+        <Heading as="h3" className={styles.featureTitle}>
+          <span className={styles.featureTitlePrompt}>&gt;</span> {title}
+        </Heading>
         <p className={styles.featureDescription}>{description}</p>
         <div className={styles.terminalSnippet}>
           <span className={styles.terminalPrompt}>$</span>
