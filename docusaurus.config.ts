@@ -139,7 +139,7 @@ const config: Config = {
           label: 'UI Documentation',
         },
         {
-          href: 'https://github.com/<org>/axiomara',
+          href: 'https://github.com/mathbrus/axiomara',
           position: 'right',
           label: 'GitHub',
         },
