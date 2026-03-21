@@ -147,7 +147,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Axiomara, Inc.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Mathbrus`,
     },
     prism: {
       theme: prismThemes.vsLight,
